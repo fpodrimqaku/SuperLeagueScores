@@ -3,6 +3,8 @@ package reestofEverything.CAMERA;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +17,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.ImageOutputStream;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -34,7 +41,13 @@ VideoCapture capture = new VideoCapture();
        DataBufferByte dataBuffer;
        byte[] data;
    
-   
+         //compression variables
+       
+ByteArrayOutputStream compressed = null;
+ImageOutputStream outputStream =null;
+       ImageWriter jpgWriter;
+ImageWriteParam jpgWriteParam; 
+     byte[] jpegData;
    
    
    
@@ -51,14 +64,7 @@ VideoCapture capture = new VideoCapture();
     public byte[] getCapuredShotArray() {
       
       
-      // Loading the OpenCV core library
-     
-
-      // Instantiating the VideoCapture class (camera:: 0)
-     
-
-      // Reading the next video frame from the camera
-        
+             
       capture.read(matrix);
 
       // If camera is opened
@@ -66,24 +72,87 @@ VideoCapture capture = new VideoCapture();
          // If there is next video frame
      if (capture.read(matrix)) {
             // Creating BuffredImage from the matrix
-     
-  
-     
+            
+    // matrix=matrix.submat(matrix.height()/4, matrix.height()*3/4, matrix.width()/4, matrix.width()*3/4);
            image = new BufferedImage(matrix.width(), 
                matrix.height(), BufferedImage.TYPE_3BYTE_BGR);
             
+           System.out.println("1::"+image.hashCode());
+           //testing
+           
+           
+           
+           
+           
+           
+           
+           
+           // The important part: Create in-memory stream
+ compressed = new ByteArrayOutputStream();
+ outputStream =null;
+try{
+outputStream = ImageIO.createImageOutputStream(compressed);
+}catch(Exception m){m.printStackTrace();}
+// NOTE: The rest of the code is just a cleaned up version of your code
+
+// Obtain writer for JPEG format
+ jpgWriter = ImageIO.getImageWritersByFormatName("jpg").next();
+
+// Configure JPEG compression: 70% quality
+jpgWriteParam = jpgWriter.getDefaultWriteParam();
+jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+jpgWriteParam.setCompressionQuality(0.7f);
+
+// Set your in-memory stream as the output
+jpgWriter.setOutput(outputStream);
+
+// Write image as JPEG w/configured settings to the in-memory stream
+// (the IIOImage is just an aggregator object, allowing you to associate
+// thumbnails and metadata to the image, it "does" nothing)
+try{
+jpgWriter.write(null, new IIOImage(image, null, null), jpgWriteParam);
+}catch(Exception m){m.printStackTrace();}
+// Dispose the writer to free resources
+jpgWriter.dispose();
+
+// Get data for further processing...
+ jpegData = compressed.toByteArray();
+           
+           System.out.println(jpegData.length);
+          
+           try{
+           image= ImageIO.read(new ByteArrayInputStream(jpegData));
+                   
+                   //ImageIO.read(ImageIO.createImageInputStream(compressed));
+          
+           }catch(Exception m){m.printStackTrace();}
+
+           System.out.println("2::"+image.hashCode());
+
+
+//testing
+           
+           
+           
+           
+           
+           
+           
+           
+           
              raster = image.getRaster();
             dataBuffer = (DataBufferByte) raster.getDataBuffer();
-          data = dataBuffer.getData();
-            matrix.get(0, 0, data);
-           //System.out.println(data.length);
+          jpegData = dataBuffer.getData();
+            matrix.get(0, 0, jpegData);
             
-            // Creating the Writable Image
-           // WritableImage = SwingFXUtils.toFXImage(image, null);
+            
+           
+
+            WritableImage = SwingFXUtils.toFXImage(image, null);
         }
      }
       
-      return data;
+      return jpegData;
    }
    
    
