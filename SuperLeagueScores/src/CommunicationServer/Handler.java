@@ -6,6 +6,7 @@ import java.util.List;
 import java.io.*;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
+import MyUtils.Converter;
 
 public class Handler implements Runnable {
     //  private String user;
@@ -13,9 +14,10 @@ public class Handler implements Runnable {
     public Handler(Socket socket, List<Room> roomList, ExecutorService exeservice) {
         this.socket = socket;
         exeService = exeservice;
+        this.roomList = roomList;
         // --dont forget to search for rooms and assign a room to the handler
     }
-
+    List<Room> roomList;
     Socket socket;
     Room room;
     List<Message> m;
@@ -29,7 +31,7 @@ public class Handler implements Runnable {
 
     @Override
     public void run() {
-        Message message=null;
+        Message message = null;
         try {
             ins = socket.getInputStream();
             outs = socket.getOutputStream();
@@ -65,16 +67,30 @@ public class Handler implements Runnable {
 
     public void assignARoom_Handler(Message message) {
 
+        if (!((room = findRoom(new String(Converter.intArrtoByteArr(message.getData())))) == null)) {
+            if (!(room.isFull())) {
+               writeMessageOut(new Message(102,null)); 
+            }
+            else {
+            
+            
+            }
+        } else {
+
+        }
+
     }
 
     public void handleBuffer() {
-        exeService.submit(this::handleBufferMETHOD);
+        if (!room.getBuffer(ID).isEmpty()) {
+            exeService.submit(this::handleBufferMETHOD);
+        }
 
     }
 
     public void handleBufferMETHOD() {
 
-        while (room.getBuffer(ID).isEmpty()) {
+        while (!room.getBuffer(ID).isEmpty()) {
             try {
                 oouts.writeObject(myBuffer.poll());
 
@@ -85,4 +101,23 @@ public class Handler implements Runnable {
 
     }
 
+    public Room findRoom(String roomName) {
+        for (Room x : roomList) {
+            if (x.getRoomName().equals(roomName)) {
+                return x;
+            }
+        }
+        return null;
+    }
+
+    
+    public void writeMessageOut(Message message){
+    
+    try {
+                    oouts.writeObject(message);
+                } catch (IOException exe5) {
+                    exe5.printStackTrace();
+                }
+    
+    }
 }

@@ -14,6 +14,11 @@ import java.util.Queue;
  */
 public class Room {
 
+    public void Room(String roomName){
+    this.roomName=roomName;
+    }
+    
+    
     private String roomName;
     private List<Handler> occupants;
     private Queue<Message> messageBuffer1;
@@ -62,4 +67,11 @@ public class Room {
         }
         return false;
     }
+    
+    
+    public void enterRoom(Handler handler){
+        if(!isFull())
+    occupants.add(handler);
+    }
+    
 }
