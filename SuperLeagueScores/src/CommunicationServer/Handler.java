@@ -66,14 +66,15 @@ public class Handler implements Runnable {
     }
 
     public void assignARoom_Handler(Message message) {
-
-        if (!((room = findRoom(new String(Converter.intArrtoByteArr(message.getData())))) == null)) {
+String roomName=new String(Converter.intArrtoByteArr(message.getData()));
+        if (!((room = findRoom(roomName)) == null)) {
             if (!(room.isFull())) {
                writeMessageOut(new Message(102,null)); 
             }
             else {
-            
-            
+            room=new Room(roomName);
+            room.enterRoom(this);
+            roomList.add(room);
             }
         } else {
 
