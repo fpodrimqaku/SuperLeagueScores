@@ -47,7 +47,7 @@ public class SendMediaUdp implements Runnable {
             camera.startCapturing();
             dGPacket = new DatagramPacket(data, 1);
             while (true) {
-                data = camera.getCapuredShotArray();
+               // data = camera.getCapuredShotArray();
                 try {
                     dSocket.send(dGPacket);
                 } catch (Exception mm) {

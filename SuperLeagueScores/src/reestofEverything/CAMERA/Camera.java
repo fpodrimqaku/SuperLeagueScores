@@ -5,8 +5,9 @@ import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-
+import org.opencv.imgcodecs.Imgcodecs;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
@@ -34,13 +36,15 @@ WritableImage WritableImage = null;
 {
       System.loadLibrary( Core.NATIVE_LIBRARY_NAME );
 }
-VideoCapture capture = new VideoCapture();
+public VideoCapture capture = new VideoCapture();
       Mat matrix = new Mat();
       BufferedImage image ;
        WritableRaster raster;
        DataBufferByte dataBuffer;
        byte[] data;
    
+       
+       FileOutputStream fous;
          //compression variables
        
 ByteArrayOutputStream compressed = null;
@@ -57,13 +61,16 @@ ImageWriteParam jpgWriteParam;
    capture.open(0);
    
    }
+   public void stopCapturing(){
+   capture.release();
+   }
    
    
    
-   
-    public byte[] getCapuredShotArray() {
+    public BufferedImage getCapuredShotArray() {
       
-      
+        try{fous=new FileOutputStream("C:\\users\\guesst\\desktop\\pinu.jpg");
+        }catch(Exception m){m.printStackTrace();}
              
       capture.read(matrix);
 
@@ -77,10 +84,8 @@ ImageWriteParam jpgWriteParam;
            image = new BufferedImage(matrix.width(), 
                matrix.height(), BufferedImage.TYPE_3BYTE_BGR);
             
-           System.out.println("1::"+image.hashCode());
+           //System.out.println("1::"+image.hashCode());
            //testing
-           
-           
            
            
            
@@ -101,7 +106,7 @@ outputStream = ImageIO.createImageOutputStream(compressed);
 // Configure JPEG compression: 70% quality
 jpgWriteParam = jpgWriter.getDefaultWriteParam();
 jpgWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-jpgWriteParam.setCompressionQuality(0.7f);
+jpgWriteParam.setCompressionQuality(0.1f);
 
 // Set your in-memory stream as the output
 jpgWriter.setOutput(outputStream);
@@ -117,43 +122,58 @@ jpgWriter.dispose();
 
 // Get data for further processing...
  jpegData = compressed.toByteArray();
-           
-           System.out.println(jpegData.length);
+      
+   
+
+ 
+ 
           
            try{
            image= ImageIO.read(new ByteArrayInputStream(jpegData));
                    
-                   //ImageIO.read(ImageIO.createImageInputStream(compressed));
+            //       ImageIO.read(ImageIO.createImageInputStream(compressed));
           
            }catch(Exception m){m.printStackTrace();}
 
-           System.out.println("2::"+image.hashCode());
-
-
+          
 //testing
+ try{
+     
+      //BufferedImage hehe = ImageIO.read(new ByteArrayInputStream(data));
+        ImageIO.write(image, "jpg", fous);
+     
+
+ if(1==1){
+
+ System.exit(0);
+ }
+ }catch(Exception m){m.printStackTrace();System.exit(0);}
+
+
            
-           
-           
-           
-           
-           
-           
-           
-           
+            System.out.println("nefore "+jpegData.length);
              raster = image.getRaster();
             dataBuffer = (DataBufferByte) raster.getDataBuffer();
           jpegData = dataBuffer.getData();
             matrix.get(0, 0, jpegData);
-            
-            
            
+              
+             
 
             WritableImage = SwingFXUtils.toFXImage(image, null);
-        }
-     }
       
-      return jpegData;
-   }
+            
+            
+            
+                        
+            
+}
+     }
+     // System.out.println("arrhash: "+jpegData.hashCode());
+     // return jpegData;
+   
+    return null;
+    }
    
    
    
