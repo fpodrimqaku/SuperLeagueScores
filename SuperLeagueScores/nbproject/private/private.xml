@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/javafxapplication7/JavaFXApplication7.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Room.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/MyUtils/Converter.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Server.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Handler.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Message.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/reestofEverything/CAMERA/testing/testingcamera.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/reestofEverything/CAMERA/SendMediaUdp.java</file>
         </group>
     </open-files>
 </project-private>

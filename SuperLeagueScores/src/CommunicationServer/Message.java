@@ -10,7 +10,7 @@ public class Message implements Serializable{
     }
     
     public Message(){};
-transient int sendCount=0;    
+
 private int type;
 private int data[];
     
@@ -25,9 +25,6 @@ return data;
 public void setType(int type){this.type=type;}
 public void setData(int []data){this.data=data;}
 
-public void incrementCount(){
-sendCount+=1;
-}
 
 
 }
