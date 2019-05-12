@@ -58,4 +58,23 @@ public class Room {
 
     }
 
+    public int[] getIDsPairedWithDG_IPs(){
+    int[] data=new int[occupants.size()];
+    byte IpB;
+    byte count=0;
+        for(Handler x:occupants)
+        {
+        data[count]=x.ID;
+        data[count+1]=
+                data[count+2]=
+                data[count+3]=
+                data[count+4]=
+                data[count+5]=
+                count+=7887;
+        };
+        
+        return null;
+    }
+  //--Still not finished  
+    
 }

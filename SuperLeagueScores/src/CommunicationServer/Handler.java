@@ -9,7 +9,8 @@ import java.util.concurrent.ExecutorService;
 import MyUtils.Converter;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 public class Handler implements Runnable {
       private String userName;
 
@@ -18,13 +19,21 @@ public class Handler implements Runnable {
         exeService = exeservice;
         this.roomList = roomList;
         this.myBuffer = new LinkedList();
+        try{
+        DGS=new DatagramSocket();
         
+        }catch(Exception exe6){exe6.printStackTrace();}//!! whatch out boi ->exe6 is pretty critical
     }
     List<Room> roomList;
     Socket socket;
     Room room;
     List<Message> m;
-    int ID=(int)(Math.random());
+    int ID;
+    
+    
+    DatagramSocket DGS;
+    InetAddress DGSIA ;
+    
     Queue<Message> myBuffer;//--dont forget to initialize buffer when id is assigned
     
     ExecutorService exeService;

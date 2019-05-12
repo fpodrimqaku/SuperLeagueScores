@@ -16,6 +16,7 @@ private int data[];
     
 public int getType(){
 return type;
+
 }
 
 public int[] getData(){
