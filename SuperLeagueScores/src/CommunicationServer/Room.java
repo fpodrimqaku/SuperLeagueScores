@@ -77,5 +77,13 @@ public class Room {
         return null;
     }
   //--Still not finished  
+
+    public List<Handler> getOccupants() {
+        return occupants;
+    }
+
+   
+    
+    
     
 }
