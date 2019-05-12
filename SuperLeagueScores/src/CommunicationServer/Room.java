@@ -37,9 +37,20 @@ public class Room {
     }
     
     
-    public void enterRoom(Handler handler){
-        if(!isFull())
+    public int enterRoom(Handler handler){
+        if(!isFull()){
+            IDLabel: for(int id=0;id<=3;id++){
+            for(Handler x:occupants)
+            { if(x.ID==id)
+                    continue IDLabel;
+            
+            }
+            handler.ID=id;
+            break IDLabel;//!! how do i know if this is gonna work
+            }
     occupants.add(handler);
+        }
+        return 8;
     }
     
     public void broadcastMessage(Message message){
