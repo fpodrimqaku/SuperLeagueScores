@@ -81,13 +81,13 @@ public class Handler implements Runnable {
         
     }
     
-    public void assignARoom_Handler(Message message) {
-        String roomName = new String(Converter.intArrtoByteArr(message.getData()));
+    public void assignARoom_Handler(Message message) {//--
+        String roomName = new String(Converter.intArrtoByteArr(message.getData()[0]));//--watch out
         if (!((room = findRoom(roomName)) == null)) {
             if (room.isFull()) {
                 writeMessageOut(new Message(102, null));                
             } else {                
-                room.enterRoom(this);
+                room.enterRoom(this); thres an extra class to declare messagex
                 room.broadcastMessage(new Message(5,new int[]{ID}));
             }
         } 
