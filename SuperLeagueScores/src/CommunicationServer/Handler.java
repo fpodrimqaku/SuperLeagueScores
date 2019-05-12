@@ -39,7 +39,7 @@ public class Handler implements Runnable {
 
     public DatagramSocket DGS;
     public InetSocketAddress DGSA;
-
+boolean terminateFlag=false;
     Queue<Message> myBuffer;//--dont forget to initialize buffer when id is assigned
 
     ExecutorService exeService;
@@ -60,7 +60,7 @@ public class Handler implements Runnable {
         } catch (Exception exe1) {
         }
 
-        while (true) {
+        while (!terminateFlag) {
             try {
                 message = (Message) oins.readObject();
             } catch (Exception exe4) {
@@ -81,6 +81,9 @@ public class Handler implements Runnable {
                 break;
             case 1:
                 this.chatMessage_Handler(message);
+                break;
+            case 3:
+                this.ConnectionTermination_Handler(message);
                 break;
         }
 
@@ -118,6 +121,18 @@ public class Handler implements Runnable {
         broadacastMessage(message);
     }
 
+    
+    private void ConnectionTermination_Handler(Message message){
+    broadacastMessage(message);
+    try{
+    socket.close();
+    DGS.close();
+    terminateFlag=true;
+    }catch(Exception exe8){exe8.printStackTrace();}
+    }
+    
+    
+    
     public void handleBuffer() {
         if (!myBuffer.isEmpty()) {
             exeService.submit(this::handleBufferMETHOD);
