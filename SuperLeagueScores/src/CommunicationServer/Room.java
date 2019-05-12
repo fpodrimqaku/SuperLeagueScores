@@ -14,53 +14,48 @@ import java.util.Queue;
  */
 public class Room {
 
-    public Room(String roomName){
-    this.roomName=roomName;
+    public Room(String roomName) {
+        this.roomName = roomName;
     }
-    
-    
+
     private String roomName;
     private List<Handler> occupants;
-   
-   
 
     public String getRoomName() {
         return roomName;
     }
 
-   
     public boolean isFull() {
         if (occupants.size() >= 4) {//!!watch out boi size cant exceed 4
             return true;
         }
         return false;
     }
-    
-    
-    public int enterRoom(Handler handler){
-        if(!isFull()){
-            IDLabel: for(int id=0;id<=3;id++){
-            for(Handler x:occupants)
-            { if(x.ID==id)
-                    continue IDLabel;
-            
+
+    public void enterRoom(Handler handler) {
+        if (!isFull()) {
+            IDLabel:
+            for (int id = 0; id <= 3; id++) {
+                for (Handler x : occupants) {
+                    if (x.ID == id) {
+                        continue IDLabel;
+                    }
+
+                }
+                handler.ID = id;
+                break IDLabel;//!! how do i know if this code is gonna work
             }
-            handler.ID=id;
-            break IDLabel;//!! how do i know if this is gonna work
-            }
-    occupants.add(handler);
+            occupants.add(handler);
         }
-        return 8;
-    }
-    
-    public void broadcastMessage(Message message){
-    
-        for (Handler x:occupants )
-            x.getBuffer().offer(message);
         
-    
     }
-    
-    
-    
+
+    public void broadcastMessage(Message message) {
+
+        for (Handler x : occupants) {
+            x.getBuffer().offer(message);
+        }
+
+    }
+
 }
