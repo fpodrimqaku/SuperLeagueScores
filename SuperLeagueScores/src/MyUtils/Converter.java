@@ -31,7 +31,7 @@ public class Converter {
  
  }
   
-  public static int [] byteArrToIntArr_prefixID(int ID,byte arr[]){
+  public static int [] byteArrToIntArr_prefix(int ID,byte arr[]){
  
  int []intArr=new int[arr.length+1];
  
