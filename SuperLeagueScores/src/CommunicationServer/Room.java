@@ -5,6 +5,7 @@
  */
 package CommunicationServer;
 
+import message.Message;
 import java.util.List;
 import java.util.Queue;
 
