@@ -57,6 +57,10 @@ boolean terminateFlag=false;
             oins = new ObjectInputStream(ins);
             oouts = new ObjectOutputStream(outs);
 
+            System.out.println(ins);
+            System.out.println(outs);
+            System.out.println(oins);
+            System.out.println(oouts);
         } catch (Exception exe1) {
         }
 
