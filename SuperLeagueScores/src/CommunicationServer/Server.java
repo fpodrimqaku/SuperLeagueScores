@@ -17,7 +17,9 @@ public class Server {
 
     public Server(int port) {
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
+          serverSocket = new ServerSocket(port);
+            
+            
         } catch (IOException exe7) {
             exe7.printStackTrace();
         }
@@ -26,10 +28,12 @@ public class Server {
     }
 
     public void run() {
+        
         Handler handler;
         while (true) {
-            try {
+            try { 
                 socket = serverSocket.accept();
+               
             } catch (IOException exe9) {
                 exe9.printStackTrace();
             }
@@ -40,7 +44,7 @@ public class Server {
     }
 
     public static void main(String args[]) {
-Server server=new Server(9090);
+Server server=new Server(9099);
 server.run();
     }
 

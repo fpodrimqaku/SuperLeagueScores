@@ -76,7 +76,7 @@ public class MessageFactory {
         InetSocketAddress isa4 = new InetSocketAddress("189.3.4.3", 9);
         InetSocketAddress isa5 = new InetSocketAddress("189.3.4.3", 89);
 
-        Message m = MessageFactory.createType0Message()
+       
 
 
     }
