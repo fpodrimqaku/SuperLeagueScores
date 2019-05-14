@@ -5,6 +5,7 @@
  */
 package CommunicationServer;
 
+import java.util.ArrayList;
 import message.Message;
 import java.util.List;
 import java.util.Queue;
@@ -17,6 +18,7 @@ public class Room {
 
     public Room(String roomName) {
         this.roomName = roomName;
+        occupants=new ArrayList();
     }
 
     private String roomName;
@@ -27,10 +29,13 @@ public class Room {
     }
 
     public boolean isFull() {
+        
         if (occupants.size() >= 4) {//!!watch out boi size cant exceed 4
+            
             return true;
         }
         return false;
+        
     }
 
     public void enterRoom(Handler handler) {
@@ -47,6 +52,7 @@ public class Room {
                 break IDLabel;//!! how do i know if this code is gonna work
             }
             occupants.add(handler);
+             
         }
         
     }
@@ -59,24 +65,7 @@ public class Room {
 
     }
 
-    public int[] getIDsPairedWithDG_IPs(){
-    int[] data=new int[occupants.size()];
-    byte IpB;
-    byte count=0;
-        for(Handler x:occupants)
-        {
-        data[count]=x.ID;
-        data[count+1]=
-                data[count+2]=
-                data[count+3]=
-                data[count+4]=
-                data[count+5]=
-                count+=7887;
-        };
-        
-        return null;
-    }
-  //--Still not finished  
+   
 
     public List<Handler> getOccupants() {
         return occupants;

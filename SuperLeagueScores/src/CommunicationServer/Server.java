@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Server {
+public class Server implements Runnable{
 
     ServerSocket serverSocket;
     List<Room> rooms;
@@ -26,19 +26,21 @@ public class Server {
         rooms = new ArrayList();
         daPool = Executors.newCachedThreadPool();
     }
-
+@Override
     public void run() {
-        
+       
         Handler handler;
         while (true) {
             try { 
                 socket = serverSocket.accept();
-               
+               handler = new Handler(socket, rooms, daPool);
+            daPool.execute(handler);
+                
+                
             } catch (IOException exe9) {
                 exe9.printStackTrace();
             }
-            handler = new Handler(socket, rooms, daPool);
-            daPool.execute(handler);
+            
         }
 
     }

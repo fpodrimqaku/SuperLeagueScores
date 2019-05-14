@@ -24,6 +24,8 @@ import reestofEverything.CAMERA.Camera;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.instrument.Instrumentation;
+import javafx.scene.image.WritableImage;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -55,16 +57,20 @@ public class testingcamera extends Application {
      
         
         camera.capture.open(0);
+        
     new Thread(
+    
         ()->{int i=900;
+        Instrumentation ins;
+      WritableImage wi;
         while(true){
             try{
-                
-
-
-                
-          //  imageView.setImage(camera.getCapuredShotArray());//SwingFXUtils.toFXImage(bufi, null));
-   }catch(Exception m){m.printStackTrace();}     
+                wi=camera.getCapuredShotArray();
+               
+                System.out.println();
+          imageView.setImage(wi);
+   
+            }catch(Exception m){m.printStackTrace();}     
           
             
         }

@@ -9,7 +9,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.lang.instrument.Instrumentation;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
@@ -67,7 +67,7 @@ ImageWriteParam jpgWriteParam;
    
    
    
-    public BufferedImage getCapuredShotArray() {
+    public WritableImage getCapuredShotArray() {
       
         try{fous=new FileOutputStream("C:\\users\\guesst\\desktop\\pinu.jpg");
         }catch(Exception m){m.printStackTrace();}
@@ -89,7 +89,7 @@ ImageWriteParam jpgWriteParam;
            
            
            
-           
+           /*
            
            
            // The important part: Create in-memory stream
@@ -125,9 +125,9 @@ jpgWriter.dispose();
       
    
 
+   */
  
- 
-          
+         /* 
            try{
            image= ImageIO.read(new ByteArrayInputStream(jpegData));
                    
@@ -135,23 +135,11 @@ jpgWriter.dispose();
           
            }catch(Exception m){m.printStackTrace();}
 
-          
-//testing
- try{
-     
-      //BufferedImage hehe = ImageIO.read(new ByteArrayInputStream(data));
-        ImageIO.write(image, "jpg", fous);
-     
-
- if(1==1){
-
- System.exit(0);
- }
- }catch(Exception m){m.printStackTrace();System.exit(0);}
+          */
 
 
+         
            
-            System.out.println("nefore "+jpegData.length);
              raster = image.getRaster();
             dataBuffer = (DataBufferByte) raster.getDataBuffer();
           jpegData = dataBuffer.getData();
@@ -172,7 +160,7 @@ jpgWriter.dispose();
      // System.out.println("arrhash: "+jpegData.hashCode());
      // return jpegData;
    
-    return null;
+    return WritableImage;
     }
    
    

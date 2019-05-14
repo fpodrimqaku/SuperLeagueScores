@@ -73,7 +73,12 @@ public class FXMLDocumentController implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-          
+     addText(2,"hello team");   
+      addText(3,"hello ");
+      addText(3,"hello team i will guard bomb site a");
+      addText(3,"ill go b \n some one come with me");
+      addText(0,"hello ");
+      addText(3,"hello ");
     }
     
     

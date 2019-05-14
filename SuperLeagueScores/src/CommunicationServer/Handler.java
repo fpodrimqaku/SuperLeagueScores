@@ -57,20 +57,18 @@ boolean terminateFlag=false;
             oins = new ObjectInputStream(ins);
             oouts = new ObjectOutputStream(outs);
 
-            System.out.println(ins);
-            System.out.println(outs);
-            System.out.println(oins);
-            System.out.println(oouts);
+          
         } catch (Exception exe1) {
         }
 
         while (!terminateFlag) {
             try {
                 message = (Message) oins.readObject();
+                handle(message);
             } catch (Exception exe4) {
                 exe4.printStackTrace();
             }
-            handle(message);
+            
         }
 
     }
@@ -114,9 +112,11 @@ boolean terminateFlag=false;
                 room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
 
             }
-        } else {
+        } else { System.out.println("reached here");
             room = new Room(roomName);
+            Message message1=MessageFactory.createType7Message(ID, otherIDS, otherUDps);
             room.enterRoom(this);
+            writeMessageOut(message1);
         }
           
     }
