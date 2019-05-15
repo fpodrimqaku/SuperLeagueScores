@@ -15,8 +15,13 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import message.MessageFactory;
 
+import java.util.concurrent.locks.*;
+
 public class Handler implements Runnable {
 
+    
+    
+    
     private String userName;
 
     public Handler(Socket socket, List<Room> roomList, ExecutorService exeservice) {
@@ -47,7 +52,9 @@ boolean terminateFlag=false;
     ObjectOutputStream oouts;
     InputStream ins;
     OutputStream outs;
-
+//boolean busy=false;
+  
+    public static Lock lock=new ReentrantLock(); 
     @Override
     public void run() {
         Message message = null;
@@ -65,6 +72,7 @@ boolean terminateFlag=false;
             try {
                 message = (Message) oins.readObject();
                 handle(message);
+                handleBuffer();
             } catch (Exception exe4) {
                 exe4.printStackTrace();
             }
@@ -92,6 +100,16 @@ boolean terminateFlag=false;
     }
 
     public void assignARoom_Handler(Message message) {
+        /*if(busy){
+        while(busy){try{Thread.sleep(100);}catch(Exception exe9){}}
+        
+        }
+        
+        busy=true;*/
+        
+        lock.lock();
+        
+        
         String roomName = message.getRoomName();
 
         List<Integer> otherIDS = new ArrayList();
@@ -103,7 +121,7 @@ boolean terminateFlag=false;
                 /*try{
                 socket.close();}catch(Exception nm){nm.printStackTrace();}*/
                 System.out.println("room full");
-            } else {//System.out.println("entered room");
+            } else {System.out.println("entered existing room");
 
                 for (Handler x : room.getOccupants()) {
                     otherIDS.add(x.ID);
@@ -116,7 +134,7 @@ boolean terminateFlag=false;
                 room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
 
             }
-        } else {// System.out.println("new room");
+        } else { System.out.println("creating new room");
             room = new Room(roomName);
             roomList.add(room);
             Message message1=MessageFactory.createType7Message(ID, otherIDS, otherUDps);
@@ -124,7 +142,9 @@ boolean terminateFlag=false;
             writeMessageOut(message1);
            
         }
-          
+        // busy=false; 
+         System.out.println("rooms number "+roomList.size());
+         lock.unlock();
     }
 
     private void chatMessage_Handler(Message message) {
@@ -181,6 +201,7 @@ boolean terminateFlag=false;
 
         try {
             oouts.writeObject(message);
+            System.out.println("message sent-------------------------");
         } catch (IOException exe5) {
             exe5.printStackTrace();
         }
@@ -215,7 +236,7 @@ boolean terminateFlag=false;
     //h.roomList.add(r1);
     
     h1.assignARoom_Handler(mess);
-    h2.assignARoom_Handler(mess);
+    /*h2.assignARoom_Handler(mess);
     h3.assignARoom_Handler(mess);
     h4.assignARoom_Handler(mess);
     h5.assignARoom_Handler(mess);
@@ -227,10 +248,11 @@ boolean terminateFlag=false;
     h3.assignARoom_Handler(mess);
      h1.assignARoom_Handler(mess);
     new Handler(null,rl,null).assignARoom_Handler(mess2);
+    */
+   //for (Handler x:h1.findRoom("ro2").getOccupants())
+     //  System.out.println(x.ID);
     
-   for (Handler x:h1.findRoom("ro2").getOccupants())
-       System.out.println(x.ID);
-    
+     System.out.println(h1.findRoom("ro2"));
     }
     
     

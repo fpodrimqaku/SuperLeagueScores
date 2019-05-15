@@ -34,7 +34,7 @@ public class ServerTesting {
             }
         });
         
-        the th1=new the(),th2=new the(),th3=new the(),th4=new the(),th5=new the();
+        the th1=new the(),th2=new the(),th3=new the(),th4=new the(),th5=new the(),th6=new the(),th7=new the();
         
 
         th1.start();
@@ -42,6 +42,8 @@ public class ServerTesting {
         th3.start();
         th4.start();
         th5.start();
+        th6.start();
+        th7.start();
 
     }
 
@@ -58,9 +60,14 @@ public class ServerTesting {
 
                 oouts.writeObject(mes);
 
-                System.out.println("my id--"+((Message) oins.readObject()).getMyID());
+                System.out.println("my id--____________________________________"+((Message) oins.readObject()).getType());
+                Message mess3=MessageFactory.createType1Message(3, "i love coffee");
+                oouts.writeObject(mess3);
+                System.out.println("__");
                 while (true) {
-                   // System.out.println("------------"+((Message) oins.readObject()).getType());
+                    Thread.sleep(1000);
+                    if(sock.getInputStream().available()>0)
+                    System.out.println("------------"+((Message) oins.readObject()).getChatMessage());
                 }
             } catch (Exception m) {
                 m.printStackTrace();

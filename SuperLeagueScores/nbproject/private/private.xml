@@ -4,10 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Room.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/MyUtils/Converter.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Server.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Handler.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Message.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/testing/LittleThingsTesting.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/testing/ServerTesting.java</file>
         </group>
     </open-files>
 </project-private>

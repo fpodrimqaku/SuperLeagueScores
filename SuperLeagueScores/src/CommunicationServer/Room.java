@@ -31,10 +31,10 @@ import java.util.Queue;
     synchronized public boolean isFull() {
        
         if (occupants.size() >= 4) {//!!watch out boi size cant exceed 4
-            System.out.println("room 1");
+            
             return true;
         }
-            System.out.println("room 0");
+            
         return false;
         
     }

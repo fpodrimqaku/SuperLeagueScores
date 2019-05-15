@@ -13,7 +13,7 @@ private int type;
 private String RoomName;
 private InetSocketAddress myUDPadd;
 private String ChatMessage;
-private int myID;
+private int myID=89;
 private List<InetSocketAddress> otherUDPs;
 private List<Integer>otherIDs;
 
