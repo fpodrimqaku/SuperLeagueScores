@@ -151,7 +151,7 @@ ObjectOutputStream oouts =new ObjectOutputStream(sock.getOutputStream());
 ObjectInputStream oins=new ObjectInputStream(sock.getInputStream());
 
 oouts.writeObject(mes);
- System.out.println("object sent init");
+
 System.out.println(((Message)oins.readObject()).getMyID());
 
 while(true){

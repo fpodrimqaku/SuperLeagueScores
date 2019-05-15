@@ -40,7 +40,7 @@ import java.util.Queue;
     }
 
   synchronized  public void enterRoom(Handler handler) {
-        if (!isFull()) {
+        
             IDLabel:
             for (int id = 0; id <= 3; id++) {
                 for (Handler x : occupants) {
@@ -54,7 +54,7 @@ import java.util.Queue;
             }
             occupants.add(handler);
              
-        }
+        
         
     }
 

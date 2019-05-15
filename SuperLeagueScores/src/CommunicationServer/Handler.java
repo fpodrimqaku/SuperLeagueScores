@@ -31,10 +31,10 @@ public class Handler implements Runnable {
             exe6.printStackTrace();
         }//!! whatch out boi ->exe6 is pretty critical
     }
-    List<Room> roomList;
+     List<Room> roomList;
     Socket socket;
     Room room;
-    List<Message> m;
+    
     int ID;
 
     public DatagramSocket DGS;
@@ -58,7 +58,7 @@ boolean terminateFlag=false;
             oouts = new ObjectOutputStream(outs);
 
           
-        } catch (Exception exe1) {
+        } catch (Exception exe1) {exe1.printStackTrace();
         }
 
         while (!terminateFlag) {
@@ -91,17 +91,18 @@ boolean terminateFlag=false;
 
     }
 
-    public void assignARoom_Handler(Message message) {//--
-        String roomName = message.getRoomName();//--watch out
+    public void assignARoom_Handler(Message message) {
+        String roomName = message.getRoomName();
 
         List<Integer> otherIDS = new ArrayList();
         List<InetSocketAddress> otherUDps = new ArrayList();
 
         if (!((room = findRoom(roomName)) == null)) {
-            if (!room.isFull()) {
-                writeMessageOut(MessageFactory.createType8Message());
+            if (room.isFull()) {//--
+             //   writeMessageOut(MessageFactory.createType8Message());
                 /*try{
                 socket.close();}catch(Exception nm){nm.printStackTrace();}*/
+                System.out.println("room full");
             } else {System.out.println("entered room");
 
                 for (Handler x : room.getOccupants()) {
@@ -110,9 +111,9 @@ boolean terminateFlag=false;
 
                 }
                 room.enterRoom(this); //id is assigned by room
-
-                writeMessageOut(MessageFactory.createType7Message(ID, otherIDS, otherUDps));
-                room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
+//!!--
+              //  writeMessageOut(MessageFactory.createType7Message(ID, otherIDS, otherUDps));
+               // room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
 
             }
         } else { System.out.println("new room");
@@ -120,7 +121,8 @@ boolean terminateFlag=false;
             roomList.add(room);
             Message message1=MessageFactory.createType7Message(ID, otherIDS, otherUDps);
             room.enterRoom(this);
-            writeMessageOut(message1);
+           // writeMessageOut(message1);
+           //--
         }
           
     }
@@ -161,12 +163,15 @@ boolean terminateFlag=false;
 
     }
 
-    public Room findRoom(String roomName) {
-        for (Room x : roomList) {
-            if (x.getRoomName().equals(roomName)) {
-                return x;
+    public Room findRoom(String roomName) {Room sob;
+        for (int x=0;x<roomList.size();x++) {
+            sob=roomList.get(x);
+            if (sob.getRoomName().equals(roomName)) {
+               
+                return roomList.get(x);
             }
         }
+        
         return null;
     }
 
@@ -189,4 +194,42 @@ boolean terminateFlag=false;
 
     }
 
+    
+    
+    public static void main(String args[]){
+    List <Room>rl=new ArrayList();
+    Handler h1=new Handler(null,rl,null);
+     Handler h2=new Handler(null,rl,null);
+     Handler h3=new Handler(null,rl,null);
+     Handler h4=new Handler(null,rl,null);
+     Handler h5=new Handler(null,rl,null);
+    Message mess=MessageFactory.createType0Message("ro2", null);
+    Room r1=new Room("r1");
+    Room r2=new Room("ro2");
+    Room r3=new Room("roo3");
+    Room r4=new Room("room4");
+    
+    //h.roomList.add(r1);
+    
+    h1.assignARoom_Handler(mess);
+    h2.assignARoom_Handler(mess);
+    h3.assignARoom_Handler(mess);
+    h4.assignARoom_Handler(mess);
+    h5.assignARoom_Handler(mess);
+    
+    h1.findRoom("ro2").getOccupants().remove(h3);
+     h1.findRoom("ro2").getOccupants().remove(h1);
+    System.out.println(h1.findRoom("ro2").getOccupants().size());
+    h5.assignARoom_Handler(mess);
+    h3.assignARoom_Handler(mess);
+     h1.assignARoom_Handler(mess);
+    new Handler(null,rl,null).assignARoom_Handler(mess);
+    
+   for (Handler x:h1.findRoom("ro2").getOccupants())
+       System.out.println(x.ID);
+    
+    }
+    
+    
+    
 }
