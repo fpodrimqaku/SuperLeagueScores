@@ -28,7 +28,7 @@ import java.util.Queue;
         return roomName;
     }
 
-    public boolean isFull() {
+    synchronized public boolean isFull() {
        
         if (occupants.size() >= 4) {//!!watch out boi size cant exceed 4
             System.out.println("room 1");

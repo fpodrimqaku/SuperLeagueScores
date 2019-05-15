@@ -103,7 +103,7 @@ boolean terminateFlag=false;
                 /*try{
                 socket.close();}catch(Exception nm){nm.printStackTrace();}*/
                 System.out.println("room full");
-            } else {System.out.println("entered room");
+            } else {//System.out.println("entered room");
 
                 for (Handler x : room.getOccupants()) {
                     otherIDS.add(x.ID);
@@ -116,7 +116,7 @@ boolean terminateFlag=false;
                 room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
 
             }
-        } else { System.out.println("new room");
+        } else {// System.out.println("new room");
             room = new Room(roomName);
             roomList.add(room);
             Message message1=MessageFactory.createType7Message(ID, otherIDS, otherUDps);
@@ -164,6 +164,8 @@ boolean terminateFlag=false;
     }
 
     public Room findRoom(String roomName) {Room sob;
+    if(roomList.size()==0)
+    return null;
         for (int x=0;x<roomList.size();x++) {
             sob=roomList.get(x);
             if (sob.getRoomName().equals(roomName)) {
