@@ -98,8 +98,8 @@ boolean terminateFlag=false;
         List<InetSocketAddress> otherUDps = new ArrayList();
 
         if (!((room = findRoom(roomName)) == null)) {
-            if (room.isFull()) {//--
-             //   writeMessageOut(MessageFactory.createType8Message());
+            if (room.isFull()) {
+                writeMessageOut(MessageFactory.createType8Message());
                 /*try{
                 socket.close();}catch(Exception nm){nm.printStackTrace();}*/
                 System.out.println("room full");
@@ -111,9 +111,9 @@ boolean terminateFlag=false;
 
                 }
                 room.enterRoom(this); //id is assigned by room
-//!!--
-              //  writeMessageOut(MessageFactory.createType7Message(ID, otherIDS, otherUDps));
-               // room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
+
+                writeMessageOut(MessageFactory.createType7Message(ID, otherIDS, otherUDps));
+                room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
 
             }
         } else { System.out.println("new room");
@@ -121,8 +121,8 @@ boolean terminateFlag=false;
             roomList.add(room);
             Message message1=MessageFactory.createType7Message(ID, otherIDS, otherUDps);
             room.enterRoom(this);
-           // writeMessageOut(message1);
-           //--
+            writeMessageOut(message1);
+           
         }
           
     }
@@ -204,6 +204,7 @@ boolean terminateFlag=false;
      Handler h4=new Handler(null,rl,null);
      Handler h5=new Handler(null,rl,null);
     Message mess=MessageFactory.createType0Message("ro2", null);
+     Message mess2=MessageFactory.createType0Message("roo3", null);
     Room r1=new Room("r1");
     Room r2=new Room("ro2");
     Room r3=new Room("roo3");
@@ -223,7 +224,7 @@ boolean terminateFlag=false;
     h5.assignARoom_Handler(mess);
     h3.assignARoom_Handler(mess);
      h1.assignARoom_Handler(mess);
-    new Handler(null,rl,null).assignARoom_Handler(mess);
+    new Handler(null,rl,null).assignARoom_Handler(mess2);
     
    for (Handler x:h1.findRoom("ro2").getOccupants())
        System.out.println(x.ID);
