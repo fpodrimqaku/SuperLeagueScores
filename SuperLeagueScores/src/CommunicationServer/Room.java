@@ -14,7 +14,7 @@ import java.util.Queue;
  *
  * @author Guesst
  */
-public class Room {
+ public  class Room {
 
     public Room(String roomName) {
         this.roomName = roomName;
@@ -29,16 +29,17 @@ public class Room {
     }
 
     public boolean isFull() {
-        
+       
         if (occupants.size() >= 4) {//!!watch out boi size cant exceed 4
-            
+            System.out.println("room 1");
             return true;
         }
+            System.out.println("room 0");
         return false;
         
     }
 
-    public void enterRoom(Handler handler) {
+  synchronized  public void enterRoom(Handler handler) {
         if (!isFull()) {
             IDLabel:
             for (int id = 0; id <= 3; id++) {
