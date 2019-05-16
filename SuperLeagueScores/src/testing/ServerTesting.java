@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import message.Message;
 import message.MessageFactory;
 
@@ -33,9 +35,8 @@ public class ServerTesting {
                 m.printStackTrace();
             }
         });
-        
-        the th1=new the(),th2=new the(),th3=new the(),th4=new the(),th5=new the(),th6=new the(),th7=new the();
-        
+
+        the th1 = new the(), th2 = new the(), th3 = new the(), th4 = new the(), th5 = new the(), th6 = new the(), th7 = new the();
 
         th1.start();
         th2.start();
@@ -48,7 +49,9 @@ public class ServerTesting {
     }
 
     static class the extends Thread {
-
+public static Lock lock=new ReentrantLock(); 
+        static public boolean send = true;
+public static int i=0;
         @Override
         public void run() {
             try {
@@ -59,15 +62,25 @@ public class ServerTesting {
                 ObjectInputStream oins = new ObjectInputStream(sock.getInputStream());
 
                 oouts.writeObject(mes);
+                Message fi = (Message) oins.readObject();
 
-                System.out.println("my id--____________________________________"+((Message) oins.readObject()).getType());
-                Message mess3=MessageFactory.createType1Message(3, "i love coffee");
+                if (fi.getType() == 8) {
+                   
+                    return;
+                }
+                Message mess3 = MessageFactory.createType1Message(fi.getMyID(), "i love coffee");
+               
                 oouts.writeObject(mess3);
-                System.out.println("__");
+                
+               
                 while (true) {
-                    Thread.sleep(1000);
-                    if(sock.getInputStream().available()>0)
-                    System.out.println("------------"+((Message) oins.readObject()).getChatMessage());
+                        Message mfin = ((Message) oins.readObject());
+                        if (mfin.getType() == 1) {
+                            System.out.println("from:"+mfin.getMyID()+" to:"+fi.getMyID() + " --> " + mfin.getChatMessage());
+                        } else {
+                            System.out.println("***from:"+mfin.getMyID()+" to:"+fi.getMyID() + " --> " +mfin.getType());
+                        }
+                   
                 }
             } catch (Exception m) {
                 m.printStackTrace();

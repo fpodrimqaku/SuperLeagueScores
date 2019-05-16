@@ -39,7 +39,7 @@ public class MessageFactory {
         message.setMyID(id);
         message.setMyUDPadd(iadd);
 
-        return null;
+        return message;
     }
 
     public static Message createType7Message(int id, List<Integer> otherids, List<InetSocketAddress> adds) {

@@ -13,8 +13,10 @@ import java.util.LinkedList;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.util.concurrent.BlockingQueue;
 import message.MessageFactory;
-
+import java.util.Collections;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.locks.*;
 
 public class Handler implements Runnable {
@@ -28,7 +30,8 @@ public class Handler implements Runnable {
         this.socket = socket;
         exeService = exeservice;
         this.roomList = roomList;
-        this.myBuffer = new LinkedList();
+        this.myBuffer =new LinkedBlockingQueue<>();
+               
         try {
             DGS = new DatagramSocket();
 
@@ -45,7 +48,7 @@ public class Handler implements Runnable {
     public DatagramSocket DGS;
     public InetSocketAddress DGSA;
 boolean terminateFlag=false;
-    Queue<Message> myBuffer;//--dont forget to initialize buffer when id is assigned
+    BlockingQueue<Message> myBuffer;//--dont forget to initialize buffer when id is assigned
 
     ExecutorService exeService;
     ObjectInputStream oins;
@@ -53,7 +56,7 @@ boolean terminateFlag=false;
     InputStream ins;
     OutputStream outs;
 //boolean busy=false;
-  
+static int count=0;  
     public static Lock lock=new ReentrantLock(); 
     @Override
     public void run() {
@@ -70,9 +73,12 @@ boolean terminateFlag=false;
 
         while (!terminateFlag) {
             try {
-                message = (Message) oins.readObject();
+                if(ins.available()>0)
+                {message = (Message) oins.readObject();
                 handle(message);
+                }
                 handleBuffer();
+                
             } catch (Exception exe4) {
                 exe4.printStackTrace();
             }
@@ -109,7 +115,7 @@ boolean terminateFlag=false;
         
         lock.lock();
         
-        
+        count++;
         String roomName = message.getRoomName();
 
         List<Integer> otherIDS = new ArrayList();
@@ -128,10 +134,15 @@ boolean terminateFlag=false;
                     otherUDps.add(x.DGSA);
 
                 }
+                
+                System.out.println(count+"                              "+room.getOccupants());
                 room.enterRoom(this); //id is assigned by room
 
                 writeMessageOut(MessageFactory.createType7Message(ID, otherIDS, otherUDps));
                 room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
+                
+              
+                
 
             }
         } else { System.out.println("creating new room");
@@ -142,7 +153,7 @@ boolean terminateFlag=false;
             writeMessageOut(message1);
            
         }
-        // busy=false; 
+        
          System.out.println("rooms number "+roomList.size());
          lock.unlock();
     }
@@ -173,14 +184,17 @@ boolean terminateFlag=false;
     public void handleBufferMETHOD() {
 
         while (!myBuffer.isEmpty()) {
-            try {
-                oouts.writeObject(myBuffer.poll());
+            try {Object o=myBuffer.poll();
+           
+                oouts.writeObject(o);
 
             } catch (Exception exe3) {
                 exe3.printStackTrace();
-            }
+         
         }
 
+try{Thread.sleep(100);}catch(Exception exe10){exe10.printStackTrace();}
+}
     }
 
     public Room findRoom(String roomName) {Room sob;
@@ -201,7 +215,7 @@ boolean terminateFlag=false;
 
         try {
             oouts.writeObject(message);
-            System.out.println("message sent-------------------------");
+            
         } catch (IOException exe5) {
             exe5.printStackTrace();
         }
