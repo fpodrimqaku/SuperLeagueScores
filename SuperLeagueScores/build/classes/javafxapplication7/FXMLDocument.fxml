@@ -14,9 +14,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane id="AnchorPane" prefHeight="576.0" prefWidth="849.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication7.FXMLDocumentController">
     <children>
@@ -92,33 +90,7 @@
                <children>
                   <ScrollPane fx:id="scrollPn_Chat" prefHeight="524.0" prefWidth="268.0">
                      <content>
-                        <FlowPane fx:id="flowPn_Chat" prefHeight="521.0" prefWidth="265.0">
-                           <children>
-                              <HBox prefHeight="51.0" prefWidth="265.0" style="-fx-padding: 7px 11px;">
-                                 <children>
-                                    <Circle fill="CORNFLOWERBLUE" radius="20.0" stroke="#6596eb" strokeType="INSIDE" />
-                                    <TextFlow prefHeight="65.0" prefWidth="223.0" style="-fx-background-radius: 10px; -fx-background-color: cornflowerblue; -fx-opacity: 0.7;" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="37.0" prefWidth="265.0" style="-fx-padding: 7px 10px;">
-                                 <children>
-                                    <TextFlow prefHeight="63.0" prefWidth="223.0" style="-fx-background-radius: 10px; -fx-background-color: #2ecc71; -fx-opacity: 0.7;" />
-                                    <Circle fill="#2ecc71" radius="20.0" stroke="#2ecc71" strokeType="INSIDE" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="51.0" prefWidth="265.0" style="-fx-padding: 7px 10px;">
-                                 <children>
-                                    <Circle fill="#e74c3c" radius="20.0" stroke="#e74c3c" strokeType="INSIDE" />
-                                    <TextFlow prefHeight="65.0" prefWidth="223.0" style="-fx-background-radius: 10px; -fx-background-color: #e74c3c; -fx-opacity: 0.7;" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="51.0" prefWidth="265.0" style="-fx-padding: 7px 10px;">
-                                 <children>
-                                    <Circle fill="#9b59b6" radius="20.0" stroke="#9b59b6" strokeType="INSIDE" />
-                                    <TextFlow prefHeight="65.0" prefWidth="223.0" style="-fx-background-radius: 10px; -fx-background-color: #9b59b6; -fx-opacity: 0.7;" />
-                                 </children>
-                              </HBox>
-                           </children></FlowPane>
+                        <FlowPane fx:id="flowPn_Chat" prefHeight="521.0" prefWidth="265.0" />
                      </content>
                   </ScrollPane>
                   <HBox prefHeight="53.0" prefWidth="268.0" style="-fx-padding: 5px;">

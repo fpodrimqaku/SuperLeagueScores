@@ -9,6 +9,7 @@ import com.sun.prism.paint.Paint;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -73,16 +74,53 @@ public class FXMLDocumentController implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     addText(2,"hello team");   
+    /* addText(2,"hello team");   
       addText(3,"hello ");
       addText(3,"hello team i will guard bomb site a");
       addText(3,"ill go b \n some one come with me");
       addText(0,"hello ");
       addText(3,"hello ");
+      addText(1,"ill be going long some one flash for me and go back to guarding short ");
+      addText(3,"hello ");
+      addText(3,"hello knsf jnjnsssjjs ssjsjsjsj ");
+      addText(3,"hello ");
+*/
+
+cont cont1=new cont(this);
+cont1.inConn();
+cont1.inConn();
+cont1.inConn();
+cont1.inConn();
+
+}
+    
+    
+    class cont{
+    FXMLDocumentController fdc;
+        public cont(FXMLDocumentController fdc){
+    this.fdc=fdc;
     }
-    
-    
-    
+        public void inConn(){
+        
+        new Thread(new Task<Integer>(){
+        @Override
+        public Integer call(){
+        fdc.addText(3,"ygygyg");
+        while(true){
+        System.out.println("4");
+        if(1==2)
+            break;
+        }
+        return 2;
+        }
+        
+        }).start();
+        
+        
+        
+        }
+        
+    }
 
 
 }
