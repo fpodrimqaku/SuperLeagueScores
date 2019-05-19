@@ -12,6 +12,7 @@ import java.net.MulticastSocket;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -102,13 +103,13 @@ public class FXMLDocumentController implements Initializable {
    
    @FXML
    public void sendText(ActionEvent actionEvent){
-       Message message=MessageFactory.createType1Message(2,txt_SendChatText.getText() );
-       ch.sendChatMessage_handle(message);
+    
+       ch.sendChatMessage_handle(txt_SendChatText.getText());
    }
    
    @FXML
    public void addText(int user,String text){
-       
+       Platform.runLater(()->{
    
     try{
        HBox hbox=FXMLLoader.load(getClass().getResource("userChats/chatText"+user+".fxml"));
@@ -124,7 +125,7 @@ public class FXMLDocumentController implements Initializable {
         
         scrollPn_Chat.setVvalue(1.0); 
     }catch(Exception m){System.out.println(m);} 
-   
+    });
    }
    
    
@@ -196,4 +197,8 @@ cont1.inConn();
     }
 */
 
+    
+
+    
+    
 }

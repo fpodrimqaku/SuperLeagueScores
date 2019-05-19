@@ -5,10 +5,12 @@
         <group>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/javafxapplication7/JavaFXApplication7.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/javafxapplication7/FXMLDocumentController.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/javafxapplication7/saved/UdpClient.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/message/Message.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/media/recSenders/Microphone.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Server.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationServer/Handler.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/javafxapplication7/saved/Sender.java</file>
             <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/CommunicationClient/ClientHandler.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/projectSS/SuperLeagueScores/src/javafxapplication7/FXMLDocument.fxml</file>
         </group>
     </open-files>
 </project-private>
