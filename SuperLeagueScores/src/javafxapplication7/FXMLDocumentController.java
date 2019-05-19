@@ -48,7 +48,9 @@ public class FXMLDocumentController implements Initializable {
       //RedUser
       @FXML
       ImageView iv_UserRedLook;
+      @FXML
       ToggleButton swt_RedMute;
+      @FXML
       ToggleButton swb_RedCamOff;
       
       
@@ -56,7 +58,9 @@ public class FXMLDocumentController implements Initializable {
       //BlueUser
       @FXML
       ImageView iv_UserBlueLook;
+      @FXML
       ToggleButton swt_BlueMute;
+      @FXML
       ToggleButton swb_BlueCamOff;
       
       
@@ -64,14 +68,18 @@ public class FXMLDocumentController implements Initializable {
       //GreenUser
       @FXML
       ImageView iv_UserGreenLook;
+      @FXML
       ToggleButton swt_GreenMute;
+      @FXML
       ToggleButton swb_GreenCamOff;
       
       
       //PurpleUser
       @FXML
       ImageView iv_UserPurpleLook;
+      @FXML
       ToggleButton swt_PurpleMute;
+      @FXML
       ToggleButton swb_PurpleCamOff;
       
       
