@@ -5,6 +5,7 @@
  */
 package javafxapplication7;
 
+import CommunicationClient.ClientHandler;
 import com.sun.prism.paint.Paint;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
@@ -20,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -33,6 +35,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
+import message.Message;
+import message.MessageFactory;
 
 /**
  *
@@ -44,6 +48,8 @@ public class FXMLDocumentController implements Initializable {
       @FXML
       Button btn_LeaveRoom;
       
+      @FXML
+      TextField txt_SendChatText;
       
       //RedUser
       @FXML
@@ -96,6 +102,8 @@ public class FXMLDocumentController implements Initializable {
    
    @FXML
    public void sendText(ActionEvent actionEvent){
+       Message message=MessageFactory.createType1Message(2,txt_SendChatText.getText() );
+       ch.sendChatMessage_handle(message);
    }
    
    @FXML
@@ -121,16 +129,24 @@ public class FXMLDocumentController implements Initializable {
    
    
    
-   
+   /*
    
    MulticastSocket multicastSocket;
    InetSocketAddress myUDP;
+   *///--
    
-   
-   
+    ClientHandler ch;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-     addText(2,"hello team");   
+  
+        
+        
+     ch=new ClientHandler(this,null);
+        ch.startRunning();
+        
+        
+        
+        /*   addText(2,"hello team");   
       addText(3,"hello ");
       addText(3,"hello team i will guard bomb site a");
       addText(3,"ill go b \n some one come with me");
@@ -140,7 +156,7 @@ public class FXMLDocumentController implements Initializable {
       addText(3,"hello ");
       addText(3,"hello knsf jnjnsssjjs ssjsjsjsj ");
       addText(3,"hello ");
-
+*/
 /*
 cont cont1=new cont(this);
 cont1.inConn();
@@ -150,7 +166,7 @@ cont1.inConn();
 */
 }
     
-    
+    /*
     class cont{
     FXMLDocumentController fdc;
         public cont(FXMLDocumentController fdc){
@@ -177,6 +193,6 @@ cont1.inConn();
         }
         
     }
-
+*/
 
 }

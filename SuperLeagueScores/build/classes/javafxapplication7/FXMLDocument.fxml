@@ -99,7 +99,7 @@
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <Button mnemonicParsing="false" prefHeight="51.0" prefWidth="55.0" style="-fx-background-radius: 50px; -fx-border-radius: 50px;" text="Button" />
+                        <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="45.0" style="-fx-background-radius: 100px; -fx-border-radius: 100px;" text="Button" />
                      </children>
                   </HBox>
                </children>
