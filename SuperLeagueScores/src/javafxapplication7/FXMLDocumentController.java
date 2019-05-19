@@ -114,7 +114,7 @@ public class FXMLDocumentController implements Initializable {
        flowPn_Chat.getChildren().add(hbox);
       //System.out.println(scrollPn_Chat);
         
-        
+        scrollPn_Chat.setVvalue(1.0); 
     }catch(Exception m){System.out.println(m);} 
    
    }
@@ -130,7 +130,7 @@ public class FXMLDocumentController implements Initializable {
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    /* addText(2,"hello team");   
+     addText(2,"hello team");   
       addText(3,"hello ");
       addText(3,"hello team i will guard bomb site a");
       addText(3,"ill go b \n some one come with me");
@@ -140,14 +140,14 @@ public class FXMLDocumentController implements Initializable {
       addText(3,"hello ");
       addText(3,"hello knsf jnjnsssjjs ssjsjsjsj ");
       addText(3,"hello ");
-*/
 
+/*
 cont cont1=new cont(this);
 cont1.inConn();
 cont1.inConn();
 cont1.inConn();
 cont1.inConn();
-
+*/
 }
     
     
