@@ -14,7 +14,9 @@ public class ClientHandler {
     
     
 Thread TCPConn;
-Thread UDPSend;
+
+Thread UDPMicSend;
+Thread UDPCamSend;
 Thread UDPReceive;
     
 
