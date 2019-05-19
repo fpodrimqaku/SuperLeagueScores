@@ -6,6 +6,8 @@
 package javafxapplication7;
 
 import com.sun.prism.paint.Paint;
+import java.net.InetSocketAddress;
+import java.net.MulticastSocket;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,8 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
@@ -35,6 +40,42 @@ import javafx.scene.web.WebView;
  */
 public class FXMLDocumentController implements Initializable {
       final String MyHexColors[]=new String[]{"#2ecc71","#6495ed","#9b59b6","#e74c3c"};
+      
+      @FXML
+      Button btn_LeaveRoom;
+      
+      
+      //RedUser
+      @FXML
+      ImageView iv_UserRedLook;
+      ToggleButton swt_RedMute;
+      ToggleButton swb_RedCamOff;
+      
+      
+      
+      //BlueUser
+      @FXML
+      ImageView iv_UserBlueLook;
+      ToggleButton swt_BlueMute;
+      ToggleButton swb_BlueCamOff;
+      
+      
+      
+      //GreenUser
+      @FXML
+      ImageView iv_UserGreenLook;
+      ToggleButton swt_GreenMute;
+      ToggleButton swb_GreenCamOff;
+      
+      
+      //PurpleUser
+      @FXML
+      ImageView iv_UserPurpleLook;
+      ToggleButton swt_PurpleMute;
+      ToggleButton swb_PurpleCamOff;
+      
+      
+      
     @FXML
     private Label label;
    
@@ -69,6 +110,13 @@ public class FXMLDocumentController implements Initializable {
     }catch(Exception m){System.out.println(m);} 
    
    }
+   
+   
+   
+   
+   
+   MulticastSocket multicastSocket;
+   InetSocketAddress myUDP;
    
    
    
