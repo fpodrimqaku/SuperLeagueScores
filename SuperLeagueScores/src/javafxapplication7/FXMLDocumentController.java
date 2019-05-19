@@ -142,6 +142,7 @@ public class FXMLDocumentController implements Initializable {
         
         
      ch=new ClientHandler(this,null);
+     ch.receivedChatMessage_handle(MessageFactory.createType1Message(2, "heheh"));
         ch.startRunning();
         
         

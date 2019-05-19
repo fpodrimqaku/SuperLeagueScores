@@ -227,6 +227,7 @@ try{Thread.sleep(100);}catch(Exception exe10){exe10.printStackTrace();}
     }
 
     private void broadacastMessage(Message message) {
+        System.out.println(message.getChatMessage());
         room.broadcastMessage(message);
 
     }

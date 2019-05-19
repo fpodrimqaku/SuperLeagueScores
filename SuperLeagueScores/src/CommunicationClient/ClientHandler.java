@@ -18,6 +18,7 @@ public class ClientHandler {
     FXMLDocumentController fdc;
 
     InetSocketAddress TCPisa=new InetSocketAddress("127.0.0.1",9099);
+    
     Socket socket;
 
     InetSocketAddress UDPisa;
@@ -29,28 +30,43 @@ public class ClientHandler {
 
     
      ObjectOutputStream oouts=null;
-    {
+    
 
+    public ClientHandler(FXMLDocumentController fdc, InetSocketAddress TCPisa) {
+        this.fdc = fdc;
+        //this.TCPisa = TCPisa;
+        
+        
+        
+        
         TCPConn = new Thread() {
             @Override
             public void run() {
                 socket = new Socket();
                 ObjectInputStream oins = null;
-                Message message;
+                Message message1;
                 try {
-                    socket.connect(TCPisa);
-                    oins = new ObjectInputStream(socket.getInputStream());
+                    socket.connect(new InetSocketAddress("127.0.0.1",9099));
+                    
                     
                     //testing
+                    System.out.println("PRE---oouts initiated"+oins);
+                    
                      oouts=new ObjectOutputStream(socket.getOutputStream());
+                    System.out.println("oouts initiated");
+                    
+                    
+                    oins = new ObjectInputStream(socket.getInputStream());
+                    
                     
                     
                     
                     oouts.writeObject(MessageFactory.createType0Message("myRoom", null));
                     
                     while (true) {
-                        message = ((Message) oins.readObject());
-                        handle(message);
+                        message1 = ((Message) oins.readObject());
+                        System.out.println(message1.getMyID());
+                        handle(message1);
                     }
                   
                 } catch (Exception exe13) {
@@ -59,12 +75,11 @@ public class ClientHandler {
 
             }
         };
-
-    }
-
-    public ClientHandler(FXMLDocumentController fdc, InetSocketAddress TCPisa) {
-        this.fdc = fdc;
-        //this.TCPisa = TCPisa;
+        
+        
+        
+        
+        
 
     }
 
