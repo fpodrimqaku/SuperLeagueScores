@@ -103,23 +103,27 @@ public class FXMLDocumentController implements Initializable {
    
    @FXML
    public void sendText(ActionEvent actionEvent){
-    
-       ch.sendChatMessage_handle(txt_SendChatText.getText());
+    String text=txt_SendChatText.getText();
+    if((text.length()==0) || (text==null))
+        return;
+       ch.sendChatMessage_handle(text);
    }
    
    @FXML
    public void addText(int user,String text){
-       Platform.runLater(()->{
-   
+       Platform.runLater(()->{String resLoc="userChats/chatText";
+   if(user==ch.getMyID())
+       resLoc="userChats/meChatText";
+   System.out.println(resLoc);
     try{
-       HBox hbox=FXMLLoader.load(getClass().getResource("userChats/chatText"+user+".fxml"));
+       HBox hbox=FXMLLoader.load(getClass().getResource(resLoc+user+".fxml"));
       Text text1=new Text(20,20,text);
       text1.setFill(Color.WHITE);
       text1.setFont(Font.font("Roman", FontWeight.BOLD, 13));
-      if(user!=0)
-      ((TextFlow)hbox.getChildren().get(1)).getChildren().add(text1);
+      if(user==ch.getMyID())
+      ((TextFlow)hbox.getChildren().get(0)).getChildren().add(text1);
  else
-           ((TextFlow)hbox.getChildren().get(0)).getChildren().add(text1);
+           ((TextFlow)hbox.getChildren().get(1)).getChildren().add(text1);
        flowPn_Chat.getChildren().add(hbox);
       //System.out.println(scrollPn_Chat);
         

@@ -139,4 +139,6 @@ MulticastSocket multicastSocket;
     }
     
     
+    public int getMyID(){return MyID;}
+    
 }
