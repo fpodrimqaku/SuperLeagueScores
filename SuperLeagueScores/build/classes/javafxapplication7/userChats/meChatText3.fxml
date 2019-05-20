@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox prefHeight="37.0" prefWidth="265.0" style="-fx-padding: 7px 10px;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextFlow prefHeight="63.0" prefWidth="223.0" style="-fx-background-radius: 10px; -fx-background-color: #e74c3c; -fx-opacity: 0.7; -fx-padding: 5px;" />
+      <Circle fill="#e74c3c" radius="20.0" stroke="#e74c3c" strokeType="INSIDE" />
+   </children>
+</HBox>

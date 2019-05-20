@@ -7,6 +7,7 @@ package CommunicationClient;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
@@ -20,9 +21,9 @@ public class ClientHandler {
     FXMLDocumentController fdc;
     int MyID;
     InetSocketAddress TCPisa = new InetSocketAddress("127.0.0.1", 9099);
-MulticastSocket multicastSocket;
     Socket socket;
 
+    MulticastSocket multicastSocket;
     InetSocketAddress UDPisa;
 
     Thread TCPConn;
@@ -32,12 +33,23 @@ MulticastSocket multicastSocket;
 
     ObjectOutputStream oouts = null;
 
+   
+
     public ClientHandler(FXMLDocumentController fdc, InetSocketAddress TCPisa) {
         this.fdc = fdc;
-        try{
-        multicastSocket=new MulticastSocket(9100);
-        //this.TCPisa = TCPisa;
-        }catch(Exception exe14){exe14.printStackTrace();}
+        try {
+            multicastSocket = new MulticastSocket(9100);
+            //this.TCPisa = TCPisa;
+
+        } catch (Exception exe14) {
+            exe14.printStackTrace();
+        }
+        initializeConnectionThreads();
+
+
+    }
+
+    public void initializeConnectionThreads() {
         TCPConn = new Thread() {
             @Override
             public void run() {
@@ -103,42 +115,42 @@ MulticastSocket multicastSocket;
 
     //Active
     public void sendChatMessage_handle(String text) {
-        Message message=MessageFactory.createType1Message(MyID,text );
-       sendMessage(message);
+        Message message = MessageFactory.createType1Message(MyID, text);
+        sendMessage(message);
     }
 
     public void leaveRoom_handle() {
-        
-        
+
     }
-    
-    
-    
-    
-    public void enteredRoom_handle(Message message){
-    MyID=message.getMyID();
-    //-- handle this part below
-    if(message.getOtherUDPs().size()==0)
-        return;
-    //for(InetSocketAddress x:message.getOtherUDPs())
-    //System.out.println("other occupants ------> "+x.getAddress()); 
+
+    public void enteredRoom_handle(Message message) {
+        MyID = message.getMyID();
+        //-- handle this part below
+        if (message.getOtherUDPs().size() == 0) {
+            return;
+        }
+        //for(InetSocketAddress x:message.getOtherUDPs())
+        //System.out.println("other occupants ------> "+x.getAddress()); 
     }
-   
-    
 
     public void startRunning() {
         TCPConn.start();
     }
 
-    public void sendMessage(Message message){
-     try {
+    public void sendMessage(Message message) {
+        try {
             oouts.writeObject(message);
         } catch (Exception exe14) {
             exe14.printStackTrace();
         }
     }
+
+    public int getMyID() {
+        return MyID;
+    }
+
     
-    
-    public int getMyID(){return MyID;}
-    
+   
+
+
 }

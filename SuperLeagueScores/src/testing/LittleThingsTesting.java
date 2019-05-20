@@ -5,34 +5,22 @@
  */
 package testing;
 
+import java.net.MulticastSocket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-
+       
 /**
  *
  * @author Guesst
  */
 public class LittleThingsTesting {
-    public static void main(String args[]){
-    
-    List<Integer> m=new ArrayList();
-    Queue<Integer> q=new PriorityQueue();
-    q.offer(1);
-    q.offer(2);
-    q.offer(3);
-    q.offer(4);
-    q.offer(5);
-    q.offer(6);
-    
-    System.out.println("asd"+q.size());
-    while(q.size()>0)
-        System.out.println(q.poll());
+    public static void main(String args[])throws Exception {
+  
+
      
-    System.out.println(q.size());
-    
     }
 
 
