@@ -11,6 +11,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.util.ArrayList;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
@@ -24,12 +25,16 @@ import javax.sound.sampled.TargetDataLine;
  */
 public class MicrophoneRecSender implements Runnable {
 
-    MulticastSocket multicastSocket;
+   // MulticastSocket multicastSocket;
 
+ArrayList <InetAddress> adds=new ArrayList();
+    
     public MicrophoneRecSender(MulticastSocket multicastSocket) {
         try {
-            multicastSocket = new MulticastSocket(9099);
-            
+           // multicastSocket = new MulticastSocket(9099);
+            //--
+            //multicastSocket.joinGroup(InetAddress.getByName("127.0.0.1"));
+            this.add(new InetSocketAddress("127.0.0.1",9099));
         } catch (Exception m) {
             m.printStackTrace();
         }
@@ -37,18 +42,13 @@ public class MicrophoneRecSender implements Runnable {
     }
 
     public void add(InetSocketAddress iadd){
-        try{
-    multicastSocket.joinGroup(iadd.getAddress());
-        }catch(Exception exe15){exe15.printStackTrace();}
+       adds.add(iadd.getAddress());
     }
     
     
     public void remove(InetSocketAddress iadd){
     
-          try{
-    multicastSocket.leaveGroup(iadd.getAddress());
-        }catch(Exception exe15){exe15.printStackTrace();}
-        
+           adds.remove(iadd.getAddress());
     }
     
     
@@ -81,10 +81,11 @@ public class MicrophoneRecSender implements Runnable {
 
                 // Configure the ip and port
                 String hostname = "localhost";
-                int port = 5555;
+                //int port = 5555;
 
                 InetAddress address = InetAddress.getByName(hostname);
-               // DatagramSocket socket = new DatagramSocket();
+               
+               DatagramSocket socket = new DatagramSocket(9099);
                 byte[] buffer = new byte[1024];
                 for (;;) {
                     numBytesRead = microphone.read(data, 0, CHUNK_SIZE);
@@ -95,9 +96,13 @@ public class MicrophoneRecSender implements Runnable {
                     speakers.write(data, 0, numBytesRead);
 
                     //DatagramPacket request = new DatagramPacket(data, numBytesRead, address, port);
-                    DatagramPacket request = new DatagramPacket(data, numBytesRead);
+                    DatagramPacket request = new DatagramPacket(data, numBytesRead,9099);
                     //socket.send(request);
-multicastSocket.send(request);
+//multicastSocket.send(request);
+for(InetAddress x:adds){
+    request.setAddress(x);
+socket.send(request);}
+
                 }
 
             } catch (LineUnavailableException e) {
@@ -108,4 +113,17 @@ multicastSocket.send(request);
         }
 
     }
+    
+    
+    
+    
+    
+    public static void main(String  args[]){
+    
+    new Thread(new MicrophoneRecSender(null)).start();
+    
+    
+    
+    }
 }
+

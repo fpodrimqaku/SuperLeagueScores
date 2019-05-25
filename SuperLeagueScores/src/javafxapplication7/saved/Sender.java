@@ -46,7 +46,7 @@ public static void main(String[] args) throws IOException {
 
         // Configure the ip and port
         String hostname = "localhost";
-        int port = 5555;
+        int port = 9099;
 
         InetAddress address = InetAddress.getByName(hostname);
         DatagramSocket socket = new DatagramSocket();
