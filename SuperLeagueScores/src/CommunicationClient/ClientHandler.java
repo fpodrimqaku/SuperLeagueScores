@@ -71,7 +71,7 @@ public class ClientHandler {
 
                     while (true) {
                         message1 = ((Message) oins.readObject());
-                        System.out.println(message1.getChatMessage());
+                        System.out.println(message1);
                         handle(message1);
                     }
 

@@ -185,7 +185,8 @@ static int count=0;
 
         while (!myBuffer.isEmpty()) {
             try {Object o=myBuffer.poll();
-           
+           if(o==null)
+               break;
                 oouts.writeObject(o);
 
             } catch (Exception exe3) {
@@ -193,7 +194,7 @@ static int count=0;
          
         }
 
-try{Thread.sleep(100);}catch(Exception exe10){exe10.printStackTrace();}
+//try{Thread.sleep(100);}catch(Exception exe10){exe10.printStackTrace();}
 }
     }
 
