@@ -26,18 +26,13 @@ import javax.sound.sampled.TargetDataLine;
 public class MicrophoneRecSender implements Runnable {
 
    // MulticastSocket multicastSocket;
-
-ArrayList <InetAddress> adds=new ArrayList();
+ int port ;
+ArrayList <InetAddress> adds;
     
-    public MicrophoneRecSender(MulticastSocket multicastSocket) {
-        try {
-           // multicastSocket = new MulticastSocket(9099);
-            //--
-            //multicastSocket.joinGroup(InetAddress.getByName("127.0.0.1"));
-            this.add(new InetSocketAddress("127.0.0.1",9099));
-        } catch (Exception m) {
-            m.printStackTrace();
-        }
+    public MicrophoneRecSender(ArrayList<InetAddress> adds,int port) {
+        this.port=port;
+        this.adds=adds;
+        
 
     }
 
@@ -58,53 +53,53 @@ ArrayList <InetAddress> adds=new ArrayList();
     public void run() {
         try {
 
-            AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, true);
-            TargetDataLine microphone;
-            SourceDataLine speakers;
-            try {
-                microphone = AudioSystem.getTargetDataLine(format);
+           
+    AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, true);
+    TargetDataLine microphone;
+    SourceDataLine speakers;
+    try {
+        microphone = AudioSystem.getTargetDataLine(format);
 
-                DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-                microphone = (TargetDataLine) AudioSystem.getLine(info);
-                microphone.open(format);
+        DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+        microphone = (TargetDataLine) AudioSystem.getLine(info);
+        microphone.open(format);
 
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                int numBytesRead;
-                int CHUNK_SIZE = 1024;
-                byte[] data = new byte[microphone.getBufferSize() / 5];
-                microphone.start();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        int numBytesRead;
+        int CHUNK_SIZE = 1024;
+        byte[] data = new byte[microphone.getBufferSize() / 5];
+        microphone.start();
 
-                DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, format);
-                speakers = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-                speakers.open(format);
-                //speakers.start();
 
-                // Configure the ip and port
-                String hostname = "localhost";
-                //int port = 5555;
+        DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, format);
+        speakers = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
+        speakers.open(format);
+        //speakers.start();
 
-                InetAddress address = InetAddress.getByName(hostname);
-               
-               DatagramSocket socket = new DatagramSocket(9099);
-                byte[] buffer = new byte[1024];
-                for (;;) {
-                    numBytesRead = microphone.read(data, 0, CHUNK_SIZE);
-                    //  bytesRead += numBytesRead;
-                    // write the mic data to a stream for use later
-                    out.write(data, 0, numBytesRead);
-                    // write mic data to stream for immediate playback
-                    speakers.write(data, 0, numBytesRead);
 
-                    //DatagramPacket request = new DatagramPacket(data, numBytesRead, address, port);
-                    DatagramPacket request = new DatagramPacket(data, numBytesRead,9099);
-                    //socket.send(request);
-//multicastSocket.send(request);
-for(InetAddress x:adds){
-    request.setAddress(x);
-socket.send(request);}
+        // Configure the ip and port
+        String hostname = "localhost";
+       
 
-                }
+        InetAddress address = InetAddress.getByName(hostname);
+        DatagramSocket socket = new DatagramSocket();
+        byte[] buffer = new byte[1024];
+        for(;;) {                
+            numBytesRead = microphone.read(data, 0, CHUNK_SIZE);
+          //  bytesRead += numBytesRead;
+            // write the mic data to a stream for use later
+            out.write(data, 0, numBytesRead); 
+            // write mic data to stream for immediate playback
+            speakers.write(data, 0, numBytesRead);            
+            DatagramPacket request = new DatagramPacket(data,numBytesRead, address, port);
+            
+            for(InetAddress x:adds){
+                request.setAddress(x);
+            socket.send(request);}
 
+        }
+
+    
             } catch (LineUnavailableException e) {
                 e.printStackTrace();
             }
@@ -118,9 +113,10 @@ socket.send(request);}
     
     
     
-    public static void main(String  args[]){
-    
-    new Thread(new MicrophoneRecSender(null)).start();
+    public static void main(String  args[])throws Exception{
+    ArrayList<InetAddress> n=new ArrayList(3);
+    n.add(InetAddress.getByName("127.0.0.1"));
+    new Thread(new MicrophoneRecSender(n,9100)).start();
     
     
     

@@ -12,7 +12,10 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import javafxapplication7.FXMLDocumentController;
+import media.recSenders.MicrophoneRecSender;
+import media.recSenders.SoundReceiver;
 import message.Message;
 import message.MessageFactory;
 
@@ -20,13 +23,17 @@ public class ClientHandler {
 
     FXMLDocumentController fdc;
     int MyID;
-    InetSocketAddress TCPisa = new InetSocketAddress("127.0.0.1", 9099);
+    InetSocketAddress TCPisa ;
     Socket socket;
 
-    MulticastSocket multicastSocket;
+  
     InetSocketAddress UDPisa;
 
     Thread TCPConn;
+    
+    
+    
+    
     Thread UDPMicSend;
     Thread UDPMicReceive;
     
@@ -35,13 +42,20 @@ public class ClientHandler {
 
     ObjectOutputStream oouts = null;
 
-   
+
+    
+    
+    
+    
+    MicrophoneRecSender mrc;
+    SoundReceiver sr;
+    ArrayList<InetAddress>adds=new ArrayList(3);
 
     public ClientHandler(FXMLDocumentController fdc, InetSocketAddress TCPisa) {
         this.fdc = fdc;
         try {
-            multicastSocket = new MulticastSocket(9100);
-            //this.TCPisa = TCPisa;
+           
+           this.TCPisa = TCPisa;
 
         } catch (Exception exe14) {
             exe14.printStackTrace();
@@ -114,10 +128,13 @@ public class ClientHandler {
     }
 
     public void occupantDisconnected_handle(Message message) {
-
+ adds.remove(message.getMyUDPadd().getAddress());
     }
 
     public void newOccupant_handle(Message message) {
+        
+        adds.add(message.getMyUDPadd().getAddress());
+       
     }
 
     //Active
@@ -136,8 +153,15 @@ public class ClientHandler {
         if (message.getOtherUDPs().size() == 0) {
             return;
         }
-        //for(InetSocketAddress x:message.getOtherUDPs())
-        //System.out.println("other occupants ------> "+x.getAddress()); 
+        try{
+        System.out.println("reached the plaece where----------    "+adds);
+        for(InetSocketAddress x:message.getOtherUDPs())
+        adds.add(x.getAddress());
+        
+        mrc=new MicrophoneRecSender(adds,9100);
+        sr=new SoundReceiver(9100);
+        new Thread(mrc).start();
+        new Thread(sr).start();}catch(Exception ee3){ee3.printStackTrace();System.exit(0);}
     }
 
     public void startRunning() {
