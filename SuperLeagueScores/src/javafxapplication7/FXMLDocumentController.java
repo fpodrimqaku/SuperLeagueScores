@@ -128,6 +128,9 @@ public class FXMLDocumentController implements Initializable {
       //System.out.println(scrollPn_Chat);
         
         scrollPn_Chat.setVvalue(1.0); 
+        scrollPn_Chat.setVvalue(1.0); 
+        scrollPn_Chat.setVvalue(1.0); 
+        scrollPn_Chat.setVvalue(1.0); 
     }catch(Exception m){System.out.println(m);} 
     });
    }

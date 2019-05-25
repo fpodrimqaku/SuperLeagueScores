@@ -28,6 +28,8 @@ public class ClientHandler {
 
     Thread TCPConn;
     Thread UDPMicSend;
+    Thread UDPMicReceive;
+    
     Thread UDPCamSend;
     Thread UDPReceive;
 
@@ -82,6 +84,11 @@ public class ClientHandler {
             }
         };
 
+        
+        
+        
+        
+       
     }
 
     public void handle(Message message) {//--temporary handle

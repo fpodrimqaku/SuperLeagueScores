@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -40,45 +39,25 @@
                         <VBox prefHeight="221.0" prefWidth="223.0" style="-fx-background-color: #2ecc71; -fx-background-radius: 20px 20px 0px 20px;">
                            <children>
                               <ImageView fx:id="iv_UserGreenLook" fitHeight="219.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true" />
-                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;">
-                                 <buttons>
-                                    <ToggleButton fx:id="swb_GreenCamOff" mnemonicParsing="false" text="CamOff" />
-                                    <ToggleButton fx:id="swb_GreenMute" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" text="Mute" />
-                                 </buttons>
-                              </ButtonBar>
+                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;" />
                            </children>
                         </VBox>
                         <VBox prefHeight="221.0" prefWidth="223.0" style="-fx-background-color: cornflowerblue; -fx-background-radius: 20px 20px 20px 0px;" GridPane.columnIndex="1">
                            <children>
                               <ImageView fx:id="iv_UserBlueLook" fitHeight="219.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true" />
-                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;">
-                                 <buttons>
-                                    <ToggleButton fx:id="swb_BlueCamOff" mnemonicParsing="false" text="CamOff" />
-                                    <ToggleButton fx:id="swb_BlueMute" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" text="Mute" />
-                                 </buttons>
-                              </ButtonBar>
+                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;" />
                            </children>
                         </VBox>
                         <VBox prefHeight="221.0" prefWidth="223.0" style="-fx-background-color: #9b59b6; -fx-background-radius: 20px 0px 20px 20px;" GridPane.rowIndex="1">
                            <children>
                               <ImageView fx:id="iv_UserPurpleLook" fitHeight="219.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true" />
-                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;">
-                                 <buttons>
-                                    <ToggleButton fx:id="swb_PurpleCamOff" mnemonicParsing="false" text="CamOff" />
-                                    <ToggleButton fx:id="swb_PurpleMute" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" text="Mute" />
-                                 </buttons>
-                              </ButtonBar>
+                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;" />
                            </children>
                         </VBox>
                         <VBox prefHeight="221.0" prefWidth="223.0" style="-fx-background-color: #e74c3c; -fx-background-radius: 0px 20px 20px 20px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
                               <ImageView fx:id="iv_UserRedLook" fitHeight="219.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true" />
-                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;">
-                                 <buttons>
-                                    <ToggleButton fx:id="swb_RedCamOff" mnemonicParsing="false" text="CamOff" />
-                                    <ToggleButton fx:id="swb_RedMute" minWidth="50.0" mnemonicParsing="false" prefHeight="25.0" text="Mute" />
-                                 </buttons>
-                              </ButtonBar>
+                              <ButtonBar prefHeight="47.0" prefWidth="183.0" style="-fx-padding: 10px;" />
                            </children>
                         </VBox>
                      </children>

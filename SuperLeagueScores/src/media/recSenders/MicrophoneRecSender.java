@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
@@ -21,15 +22,38 @@ import javax.sound.sampled.TargetDataLine;
  *
  * @author Guesst
  */
-public class Microphone implements Runnable {
+public class MicrophoneRecSender implements Runnable {
 
     MulticastSocket multicastSocket;
 
-    public Microphone(MulticastSocket multicastSocket) {
+    public MicrophoneRecSender(MulticastSocket multicastSocket) {
+        try {
+            multicastSocket = new MulticastSocket(9099);
+            
+        } catch (Exception m) {
+            m.printStackTrace();
+        }
 
-        this.multicastSocket = multicastSocket;
     }
 
+    public void add(InetSocketAddress iadd){
+        try{
+    multicastSocket.joinGroup(iadd.getAddress());
+        }catch(Exception exe15){exe15.printStackTrace();}
+    }
+    
+    
+    public void remove(InetSocketAddress iadd){
+    
+          try{
+    multicastSocket.leaveGroup(iadd.getAddress());
+        }catch(Exception exe15){exe15.printStackTrace();}
+        
+    }
+    
+    
+    
+    
     @Override
     public void run() {
         try {
@@ -60,7 +84,7 @@ public class Microphone implements Runnable {
                 int port = 5555;
 
                 InetAddress address = InetAddress.getByName(hostname);
-                DatagramSocket socket = new DatagramSocket();
+               // DatagramSocket socket = new DatagramSocket();
                 byte[] buffer = new byte[1024];
                 for (;;) {
                     numBytesRead = microphone.read(data, 0, CHUNK_SIZE);
@@ -69,10 +93,11 @@ public class Microphone implements Runnable {
                     out.write(data, 0, numBytesRead);
                     // write mic data to stream for immediate playback
                     speakers.write(data, 0, numBytesRead);
-                    
-                    DatagramPacket request = new DatagramPacket(data, numBytesRead, address, port);
-                    socket.send(request);
 
+                    //DatagramPacket request = new DatagramPacket(data, numBytesRead, address, port);
+                    DatagramPacket request = new DatagramPacket(data, numBytesRead);
+                    //socket.send(request);
+multicastSocket.send(request);
                 }
 
             } catch (LineUnavailableException e) {
