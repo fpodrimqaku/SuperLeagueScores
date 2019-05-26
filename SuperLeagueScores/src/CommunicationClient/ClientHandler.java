@@ -73,7 +73,7 @@ public class ClientHandler {
                 ObjectInputStream oins = null;
                 Message message1;
                 try {
-                    socket.connect(new InetSocketAddress("127.0.0.1", 9099));
+                    socket.connect(TCPisa);
 
                     //testing
                     System.out.println("PRE---oouts initiated" + oins);

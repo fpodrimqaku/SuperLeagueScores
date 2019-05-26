@@ -5,6 +5,7 @@
  */
 package testing;
 
+import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,7 +21,7 @@ public class LittleThingsTesting {
     public static void main(String args[])throws Exception {
   
 
-     
+     System.out.println(InetAddress.getLocalHost());
     }
 
 
