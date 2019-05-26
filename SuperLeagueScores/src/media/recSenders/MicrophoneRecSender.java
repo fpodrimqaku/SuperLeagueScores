@@ -27,23 +27,22 @@ public class MicrophoneRecSender implements Runnable {
 
    // MulticastSocket multicastSocket;
  int port ;
-ArrayList <InetAddress> adds;
+ArrayList <InetSocketAddress> adds;
     
-    public MicrophoneRecSender(ArrayList<InetAddress> adds,int port) {
+    public MicrophoneRecSender(ArrayList<InetSocketAddress> adds) {
         this.port=port;
-        this.adds=adds;
         
 
     }
 
     public void add(InetSocketAddress iadd){
-       adds.add(iadd.getAddress());
+       adds.add(iadd);
     }
     
     
     public void remove(InetSocketAddress iadd){
     
-           adds.remove(iadd.getAddress());
+           adds.remove(iadd);
     }
     
     
@@ -54,7 +53,7 @@ ArrayList <InetAddress> adds;
         try {
 
            
-    AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 44100, 16, 2, 4, 44100, true);
+    AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 4100, 16, 2, 4, 4100, true);
     TargetDataLine microphone;
     SourceDataLine speakers;
     try {
@@ -91,10 +90,11 @@ ArrayList <InetAddress> adds;
             out.write(data, 0, numBytesRead); 
             // write mic data to stream for immediate playback
             speakers.write(data, 0, numBytesRead);            
-            DatagramPacket request = new DatagramPacket(data,numBytesRead, address, port);
+            DatagramPacket request = new DatagramPacket(data,numBytesRead);
             
-            for(InetAddress x:adds){
-                request.setAddress(x);
+            for(InetSocketAddress x:adds){
+                request.setAddress(x.getAddress());
+                request.setPort(x.getPort());
             socket.send(request);}
 
         }

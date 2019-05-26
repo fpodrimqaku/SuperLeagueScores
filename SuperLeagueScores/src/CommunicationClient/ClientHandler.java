@@ -11,6 +11,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import javafxapplication7.FXMLDocumentController;
@@ -20,6 +21,8 @@ import message.Message;
 import message.MessageFactory;
 
 public class ClientHandler {
+InetAddress mainAddress;
+int micUDPport;
 
     FXMLDocumentController fdc;
     int MyID;
@@ -49,10 +52,11 @@ public class ClientHandler {
     
     MicrophoneRecSender mrc;
     SoundReceiver sr;
-    ArrayList<InetAddress>adds=new ArrayList(3);
+    ArrayList<InetSocketAddress>adds=new ArrayList(3);
 
     public ClientHandler(FXMLDocumentController fdc, InetSocketAddress TCPisa) {
         this.fdc = fdc;
+        micUDPport=getFreePort();
         try {
            
            this.TCPisa = TCPisa;
@@ -74,6 +78,7 @@ public class ClientHandler {
                 Message message1;
                 try {
                     socket.connect(TCPisa);
+mainAddress=socket.getLocalAddress();
 
                     //testing
                     System.out.println("PRE---oouts initiated" + oins);
@@ -83,7 +88,9 @@ public class ClientHandler {
 
                     oins = new ObjectInputStream(socket.getInputStream());
 //-- port is hard coded
-                    oouts.writeObject(MessageFactory.createType0Message("myRoom", new InetSocketAddress(InetAddress.getLocalHost(),9100)));
+
+
+                    oouts.writeObject(MessageFactory.createType0Message("myRoom", new InetSocketAddress(mainAddress,micUDPport)));
 
                     while (true) {
                         message1 = ((Message) oins.readObject());
@@ -133,7 +140,7 @@ public class ClientHandler {
 
     public void newOccupant_handle(Message message) {
         
-        adds.add(message.getMyUDPadd().getAddress());
+        adds.add(message.getMyUDPadd());
        
     }
 
@@ -156,10 +163,10 @@ public class ClientHandler {
         try{
         System.out.println("reached the plaece where----------    "+adds);
         for(InetSocketAddress x:message.getOtherUDPs())
-        adds.add(x.getAddress());
+        adds.add(x);
         
-        mrc=new MicrophoneRecSender(adds,9100);
-        sr=new SoundReceiver(9100);
+        mrc=new MicrophoneRecSender(adds);
+        sr=new SoundReceiver(micUDPport);
         new Thread(mrc).start();
         new Thread(sr).start();}catch(Exception ee3){ee3.printStackTrace();System.exit(0);}
     }
@@ -181,7 +188,20 @@ public class ClientHandler {
     }
 
     
-   
+private int getFreePort(){
+int uu=9100;
+
+try{
+    ServerSocket trySocket=new ServerSocket(uu+=(int)(Math.random()*100));
+    trySocket.close();
+    return uu;
+}catch(Exception mm){
+uu=getFreePort();
+return uu;
+}
+
+
+}   
 
 
 }
