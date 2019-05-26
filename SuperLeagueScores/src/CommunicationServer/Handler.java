@@ -21,17 +21,14 @@ import java.util.concurrent.locks.*;
 
 public class Handler implements Runnable {
 
-    
-    
-    
     private String userName;
 
     public Handler(Socket socket, List<Room> roomList, ExecutorService exeservice) {
         this.socket = socket;
         exeService = exeservice;
         this.roomList = roomList;
-        this.myBuffer =new LinkedBlockingQueue<>();
-               
+        this.myBuffer = new LinkedBlockingQueue<>();
+
         try {
             DGS = new DatagramSocket();
 
@@ -39,15 +36,15 @@ public class Handler implements Runnable {
             exe6.printStackTrace();
         }//!! whatch out boi ->exe6 is pretty critical
     }
-     List<Room> roomList;
+    List<Room> roomList;
     Socket socket;
     Room room;
-    
+
     int ID;
 
     public DatagramSocket DGS;
     public InetSocketAddress DGSA;
-boolean terminateFlag=false;
+    boolean terminateFlag = false;
     BlockingQueue<Message> myBuffer;//--dont forget to initialize buffer when id is assigned
 
     ExecutorService exeService;
@@ -56,8 +53,9 @@ boolean terminateFlag=false;
     InputStream ins;
     OutputStream outs;
 //boolean busy=false;
-static int count=0;  
-    public static Lock lock=new ReentrantLock(); 
+    static int count = 0;
+    public static Lock lock = new ReentrantLock();
+
     @Override
     public void run() {
         Message message = null;
@@ -67,22 +65,22 @@ static int count=0;
             oins = new ObjectInputStream(ins);
             oouts = new ObjectOutputStream(outs);
 
-          
-        } catch (Exception exe1) {exe1.printStackTrace();
+        } catch (Exception exe1) {
+            exe1.printStackTrace();
         }
 
         while (!terminateFlag) {
             try {
-                if(ins.available()>0)
-                {message = (Message) oins.readObject();
-                handle(message);
+                if (ins.available() > 0) {
+                    message = (Message) oins.readObject();
+                    handle(message);
                 }
                 handleBuffer();
-                
+
             } catch (Exception exe4) {
                 exe4.printStackTrace();
             }
-            
+
         }
 
     }
@@ -105,18 +103,18 @@ static int count=0;
 
     }
 
-    public void assignARoom_Handler(Message message) {
+    public void assignARoom_Handler(Message message5) {
         /*if(busy){
         while(busy){try{Thread.sleep(100);}catch(Exception exe9){}}
         
         }
         
         busy=true;*/
-        
+
         lock.lock();
-        
+
         count++;
-        String roomName = message.getRoomName();
+        String roomName = message5.getRoomName();
 
         List<Integer> otherIDS = new ArrayList();
         List<InetSocketAddress> otherUDps = new ArrayList();
@@ -127,53 +125,52 @@ static int count=0;
                 /*try{
                 socket.close();}catch(Exception nm){nm.printStackTrace();}*/
                 System.out.println("room full");
-            } else {System.out.println("entered existing room");
+            } else {
+                System.out.println("entered existing room");
 
                 for (Handler x : room.getOccupants()) {
                     otherIDS.add(x.ID);
                     otherUDps.add(x.DGSA);
 
                 }
-                
-                System.out.println(count+"                              "+room.getOccupants());
-                room.enterRoom(this); //id is assigned by room
 
+                System.out.println(count + "                              " + room.getOccupants());
+                room.enterRoom(this); //id is assigned by room
+                DGSA = message5.getMyUDPadd();
                 writeMessageOut(MessageFactory.createType7Message(ID, otherIDS, otherUDps));
                 room.broadcastMessage(MessageFactory.createType5Message(ID, DGSA));
-                
-              
-                
 
             }
-        } else { System.out.println("creating new room");
+        } else {
+            System.out.println("creating new room");
             room = new Room(roomName);
             roomList.add(room);
-            Message message1=MessageFactory.createType7Message(ID, otherIDS, otherUDps);
+            DGSA = message5.getMyUDPadd();//--?
+            Message message1 = MessageFactory.createType7Message(ID, otherIDS, otherUDps);
             room.enterRoom(this);
             writeMessageOut(message1);
-           
+
         }
-        
-         System.out.println("rooms number "+roomList.size());
-         lock.unlock();
+
+        System.out.println("rooms number " + roomList.size());
+        lock.unlock();
     }
 
     private void chatMessage_Handler(Message message) {
         broadacastMessage(message);
     }
 
-    
-    private void ConnectionTermination_Handler(Message message){
-    broadacastMessage(message);
-    try{
-    socket.close();
-    DGS.close();
-    terminateFlag=true;
-    }catch(Exception exe8){exe8.printStackTrace();}
+    private void ConnectionTermination_Handler(Message message) {
+        broadacastMessage(message);
+        try {
+            socket.close();
+            DGS.close();
+            terminateFlag = true;
+        } catch (Exception exe8) {
+            exe8.printStackTrace();
+        }
     }
-    
-    
-    
+
     public void handleBuffer() {
         if (!myBuffer.isEmpty()) {
             exeService.submit(this::handleBufferMETHOD);
@@ -184,31 +181,35 @@ static int count=0;
     public void handleBufferMETHOD() {
 
         while (!myBuffer.isEmpty()) {
-            try {Object o=myBuffer.poll();
-           if(o==null)
-               break;
+            try {
+                Object o = myBuffer.poll();
+                if (o == null) {
+                    break;
+                }
                 oouts.writeObject(o);
 
             } catch (Exception exe3) {
                 exe3.printStackTrace();
-         
-        }
+
+            }
 
 //try{Thread.sleep(100);}catch(Exception exe10){exe10.printStackTrace();}
-}
+        }
     }
 
-    public Room findRoom(String roomName) {Room sob;
-    if(roomList.size()==0)
-    return null;
-        for (int x=0;x<roomList.size();x++) {
-            sob=roomList.get(x);
+    public Room findRoom(String roomName) {
+        Room sob;
+        if (roomList.size() == 0) {
+            return null;
+        }
+        for (int x = 0; x < roomList.size(); x++) {
+            sob = roomList.get(x);
             if (sob.getRoomName().equals(roomName)) {
-               
+
                 return roomList.get(x);
             }
         }
-        
+
         return null;
     }
 
@@ -216,7 +217,7 @@ static int count=0;
 
         try {
             oouts.writeObject(message);
-            
+
         } catch (IOException exe5) {
             exe5.printStackTrace();
         }
@@ -233,26 +234,23 @@ static int count=0;
 
     }
 
-    
-    
-    public static void main(String args[]){
-    List <Room>rl=new ArrayList();
-    Handler h1=new Handler(null,rl,null);
-     Handler h2=new Handler(null,rl,null);
-     Handler h3=new Handler(null,rl,null);
-     Handler h4=new Handler(null,rl,null);
-     Handler h5=new Handler(null,rl,null);
-    Message mess=MessageFactory.createType0Message("ro2", null);
-     Message mess2=MessageFactory.createType0Message("roo3", null);
-    Room r1=new Room("r1");
-    Room r2=new Room("ro2");
-    Room r3=new Room("roo3");
-    Room r4=new Room("room4");
-    
-    //h.roomList.add(r1);
-    
-    h1.assignARoom_Handler(mess);
-    /*h2.assignARoom_Handler(mess);
+    public static void main(String args[]) {
+        List<Room> rl = new ArrayList();
+        Handler h1 = new Handler(null, rl, null);
+        Handler h2 = new Handler(null, rl, null);
+        Handler h3 = new Handler(null, rl, null);
+        Handler h4 = new Handler(null, rl, null);
+        Handler h5 = new Handler(null, rl, null);
+        Message mess = MessageFactory.createType0Message("ro2", null);
+        Message mess2 = MessageFactory.createType0Message("roo3", null);
+        Room r1 = new Room("r1");
+        Room r2 = new Room("ro2");
+        Room r3 = new Room("roo3");
+        Room r4 = new Room("room4");
+
+        //h.roomList.add(r1);
+        h1.assignARoom_Handler(mess);
+        /*h2.assignARoom_Handler(mess);
     h3.assignARoom_Handler(mess);
     h4.assignARoom_Handler(mess);
     h5.assignARoom_Handler(mess);
@@ -264,13 +262,11 @@ static int count=0;
     h3.assignARoom_Handler(mess);
      h1.assignARoom_Handler(mess);
     new Handler(null,rl,null).assignARoom_Handler(mess2);
-    */
-   //for (Handler x:h1.findRoom("ro2").getOccupants())
-     //  System.out.println(x.ID);
-    
-     System.out.println(h1.findRoom("ro2"));
+         */
+        //for (Handler x:h1.findRoom("ro2").getOccupants())
+        //  System.out.println(x.ID);
+
+        System.out.println(h1.findRoom("ro2"));
     }
-    
-    
-    
+
 }

@@ -82,8 +82,8 @@ public class ClientHandler {
                     System.out.println("oouts initiated");
 
                     oins = new ObjectInputStream(socket.getInputStream());
-
-                    oouts.writeObject(MessageFactory.createType0Message("myRoom", null));
+//-- port is hard coded
+                    oouts.writeObject(MessageFactory.createType0Message("myRoom", new InetSocketAddress(InetAddress.getLocalHost(),9100)));
 
                     while (true) {
                         message1 = ((Message) oins.readObject());

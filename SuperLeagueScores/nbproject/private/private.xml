@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/javafxapplication7/saved/Sender.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/media/recSenders/MicrophoneRecSender.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/media/recSenders/SoundReceiver.java</file>
-            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/javafxapplication7/saved/UdpClient.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/CommunicationServer/Server.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/CommunicationClient/ClientHandler.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/javafxapplication7/JavaFXApplication7.java</file>
+            <file>file:/C:/Users/Guesst/Desktop/prj/SuperLeagueScores/SuperLeagueScores/src/javafxapplication7/FXMLDocumentController.java</file>
         </group>
     </open-files>
 </project-private>
