@@ -149,7 +149,7 @@ public class FXMLDocumentController implements Initializable {
   
         
         
-     ch=new ClientHandler(this,new InetSocketAddress("127.0.0.1",9099));
+     ch=new ClientHandler(this,new InetSocketAddress("192.168.43.114",9099));
      ch.receivedChatMessage_handle(MessageFactory.createType1Message(2, "heheh"));
         ch.startRunning();
         

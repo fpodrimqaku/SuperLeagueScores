@@ -114,9 +114,9 @@ ArrayList <InetAddress> adds;
     
     
     public static void main(String  args[])throws Exception{
-    ArrayList<InetAddress> n=new ArrayList(3);
-    n.add(InetAddress.getByName("127.0.0.1"));
-    new Thread(new MicrophoneRecSender(n,9100)).start();
+    //ArrayList<InetAddress> n=new ArrayList(3);
+   // n.add(InetAddress.getByName("127.0.0.1"));
+    //new Thread(new MicrophoneRecSender(n,9100)).start();
     
     
     
