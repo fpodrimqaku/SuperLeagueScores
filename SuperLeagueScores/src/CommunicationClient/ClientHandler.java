@@ -14,6 +14,8 @@ import java.net.MulticastSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javafxapplication7.FXMLDocumentController;
 import media.recSenders.MicrophoneRecSender;
 import media.recSenders.SoundReceiver;
@@ -23,7 +25,8 @@ import message.MessageFactory;
 public class ClientHandler {
 InetAddress mainAddress;
 int micUDPport;
-
+Lock lock=new ReentrantLock(true);
+       
     FXMLDocumentController fdc;
     int MyID;
     InetSocketAddress TCPisa ;
@@ -176,10 +179,13 @@ mainAddress=socket.getLocalAddress();
     }
 
     public void sendMessage(Message message) {
+        lock.lock();
         try {
             oouts.writeObject(message);
         } catch (Exception exe14) {
             exe14.printStackTrace();
+        }finally{
+        lock.unlock();
         }
     }
 
@@ -188,7 +194,7 @@ mainAddress=socket.getLocalAddress();
     }
 
     
-private int getFreePort(){
+static private int getFreePort(){
 int uu=9100;
 
 try{
@@ -202,6 +208,24 @@ return uu;
 
 
 }   
+
+public void leaveRoom(){
+
+
+    
+    
+
+}
+
+
+
+public static void main(String args[]){
+System.out.println(getFreePort());
+
+
+
+}
+
 
 
 }

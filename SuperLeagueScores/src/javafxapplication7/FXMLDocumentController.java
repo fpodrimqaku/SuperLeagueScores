@@ -137,6 +137,15 @@ public class FXMLDocumentController implements Initializable {
    
    
    
+   
+   
+   @FXML
+   public void leaveRoom(ActionEvent actionEvent){
+   ch.leaveRoom();
+   
+   }
+   
+   
    /*
    
    MulticastSocket multicastSocket;

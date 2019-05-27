@@ -23,7 +23,7 @@
                <children>
                   <ToolBar prefHeight="40.0" prefWidth="200.0">
                     <items>
-                        <Button fx:id="btn_LeaveRoom" mnemonicParsing="false" text="Leave Room" />
+                        <Button fx:id="btn_LeaveRoom" mnemonicParsing="false" onAction="#leaveRoom" text="Leave Room" />
                     </items>
                   </ToolBar>
                   <GridPane prefHeight="614.0" prefWidth="666.0">
