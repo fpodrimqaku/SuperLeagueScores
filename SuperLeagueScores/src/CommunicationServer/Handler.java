@@ -189,8 +189,12 @@ public class Handler implements Runnable {
                 oouts.writeObject(o);
 
             } catch (Exception exe3) {
-                exe3.printStackTrace();
-
+                
+                room.getOccupants().remove(this);
+                System.out.println("numer of rroms occupants is ------"+room.getOccupants().size() );
+                System.out.println("Occupant "+this.ID+ " left the room ->"+room.getRoomName());
+                terminateFlag=true;
+               
             }
 
 //try{Thread.sleep(100);}catch(Exception exe10){exe10.printStackTrace();}
@@ -229,7 +233,7 @@ public class Handler implements Runnable {
     }
 
     private void broadacastMessage(Message message) {
-        System.out.println(message.getChatMessage());
+        
         room.broadcastMessage(message);
 
     }

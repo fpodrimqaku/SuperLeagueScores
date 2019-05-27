@@ -13,6 +13,7 @@ import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -101,7 +102,11 @@ mainAddress=socket.getLocalAddress();
                         handle(message1);
                     }
 
-                } catch (Exception exe13) {
+                } 
+                catch(SocketException exe17){
+                System.out.println("connectio to server terminated");
+                }
+                catch (Exception exe13) {
                     exe13.printStackTrace();
                 }
 
@@ -210,11 +215,17 @@ return uu;
 }   
 
 public void leaveRoom(){
+sendMessage(MessageFactory.createType3Message(MyID,new InetSocketAddress(mainAddress,micUDPport)));
+//--;
+try{
+socket.close();
+}catch(Exception m){
+m.printStackTrace();
+
+}
 
 
-    
-    
-
+System.exit(0);
 }
 
 

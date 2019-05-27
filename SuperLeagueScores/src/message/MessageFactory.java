@@ -24,12 +24,12 @@ public class MessageFactory {
         return message;
     }
 
-    public static Message createType3Message(int id) {
+    public static Message createType3Message(int id,InetSocketAddress iadd) {
         Message message = new Message();
 
         message.setType(3);
         message.setMyID(id);
-
+message.setMyUDPadd(iadd);
         return message;
     }
 
