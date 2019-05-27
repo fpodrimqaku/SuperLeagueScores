@@ -100,6 +100,8 @@ mainAddress=socket.getLocalAddress();
                         message1 = ((Message) oins.readObject());
                         System.out.println(message1);
                         handle(message1);
+                        for(InetSocketAddress x:adds)
+                            System.out.println(x.getAddress()+"--"+x.getPort());
                     }
 
                 } 
@@ -143,11 +145,11 @@ mainAddress=socket.getLocalAddress();
     }
 
     public void occupantDisconnected_handle(Message message) {
- adds.remove(message.getMyUDPadd().getAddress());
+ adds.remove(message.getMyUDPadd());
     }
 
     public void newOccupant_handle(Message message) {
-        
+        if(!message.getMyUDPadd().getAddress().equals(mainAddress))
         adds.add(message.getMyUDPadd());
        
     }
@@ -164,10 +166,7 @@ mainAddress=socket.getLocalAddress();
 
     public void enteredRoom_handle(Message message) {
         MyID = message.getMyID();
-        //-- handle this part below
-        if (message.getOtherUDPs().size() == 0) {
-            return;
-        }
+        
         try{
         System.out.println("reached the plaece where----------    "+adds);
         for(InetSocketAddress x:message.getOtherUDPs())
@@ -175,8 +174,19 @@ mainAddress=socket.getLocalAddress();
         
         mrc=new MicrophoneRecSender(adds);
         sr=new SoundReceiver(micUDPport);
+        
+        new Thread(sr).start();
         new Thread(mrc).start();
-        new Thread(sr).start();}catch(Exception ee3){ee3.printStackTrace();System.exit(0);}
+        System.out.println(micUDPport);
+        }catch(Exception ee3){ee3.printStackTrace();System.exit(0);}
+        
+        
+        
+        //-- handle this part below
+        if (message.getOtherUDPs().size() == 0) {
+            return;
+        }
+        
     }
 
     public void startRunning() {

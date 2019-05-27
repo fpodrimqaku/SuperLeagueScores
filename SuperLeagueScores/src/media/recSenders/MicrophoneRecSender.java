@@ -70,9 +70,9 @@ this.adds=adds;
         microphone.start();
 
 
-        DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, format);
-        speakers = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
-        speakers.open(format);
+        //DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, format);
+        //speakers = (SourceDataLine) AudioSystem.getLine(dataLineInfo);
+        //speakers.open(format);
         //speakers.start();
 
 
@@ -89,7 +89,7 @@ this.adds=adds;
             // write the mic data to a stream for use later
             out.write(data, 0, numBytesRead); 
             // write mic data to stream for immediate playback
-            speakers.write(data, 0, numBytesRead);            
+            //speakers.write(data, 0, numBytesRead);            
             DatagramPacket request = new DatagramPacket(data,numBytesRead);
             
             for(InetSocketAddress x:adds){
@@ -115,7 +115,7 @@ this.adds=adds;
     
     public static void main(String  args[])throws Exception{
     ArrayList<InetSocketAddress> n=new ArrayList(3);
-    n.add(new InetSocketAddress("127.0.0.1",9100));
+    n.add(new InetSocketAddress("192.168.43.114",9100));
    new Thread(new MicrophoneRecSender(n)).start();
     
     

@@ -38,17 +38,17 @@ public class SoundReceiver implements Runnable {
      AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 24100, 16, 2, 4, 24100, true);
     TargetDataLine microphone;
     SourceDataLine speakers;
-    microphone = AudioSystem.getTargetDataLine(format);
+   // microphone = AudioSystem.getTargetDataLine(format);
 
-    DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-    microphone = (TargetDataLine) AudioSystem.getLine(info);
-    microphone.open(format);
+   // DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+   // microphone = (TargetDataLine) AudioSystem.getLine(info);
+    //microphone.open(format);
 
     ByteArrayOutputStream out = new ByteArrayOutputStream();
     int numBytesRead;
     int CHUNK_SIZE = 1024;
-    byte[] data = new byte[microphone.getBufferSize() / 5];
-    microphone.start();
+    //byte[] data = new byte[microphone.getBufferSize() / 5];
+    //microphone.start();
 
     int bytesRead = 0;
     DataLine.Info dataLineInfo = new DataLine.Info(SourceDataLine.class, format);
