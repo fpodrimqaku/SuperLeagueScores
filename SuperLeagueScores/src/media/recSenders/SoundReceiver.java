@@ -35,7 +35,7 @@ public class SoundReceiver implements Runnable {
     @Override
     public void run(){
     try{
-     AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 4100, 16, 2, 4, 4100, true);
+     AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 24100, 16, 2, 4, 24100, true);
     TargetDataLine microphone;
     SourceDataLine speakers;
     microphone = AudioSystem.getTargetDataLine(format);

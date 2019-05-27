@@ -59,6 +59,8 @@ public static void main(String[] args) throws LineUnavailableException {
             response= new DatagramPacket(buffer, buffer.length);
             serverSocket.receive(response);
 
+            
+            
             out.write(response.getData(), 0, response.getData().length);
             speakers.write(response.getData(), 0, response.getData().length);
             //String quote = new String(buffer, 0, response.getLength());

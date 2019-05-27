@@ -32,7 +32,7 @@ ArrayList <InetSocketAddress> adds;
     public MicrophoneRecSender(ArrayList<InetSocketAddress> adds) {
         this.port=port;
         
-
+this.adds=adds;
     }
 
     public void add(InetSocketAddress iadd){
@@ -53,7 +53,7 @@ ArrayList <InetSocketAddress> adds;
         try {
 
            
-    AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 4100, 16, 2, 4, 4100, true);
+    AudioFormat format = new AudioFormat(AudioFormat.Encoding.PCM_SIGNED, 24100, 16, 2, 4, 24100, true);
     TargetDataLine microphone;
     SourceDataLine speakers;
     try {
@@ -114,9 +114,9 @@ ArrayList <InetSocketAddress> adds;
     
     
     public static void main(String  args[])throws Exception{
-    //ArrayList<InetAddress> n=new ArrayList(3);
-   // n.add(InetAddress.getByName("127.0.0.1"));
-    //new Thread(new MicrophoneRecSender(n,9100)).start();
+    ArrayList<InetSocketAddress> n=new ArrayList(3);
+    n.add(new InetSocketAddress("127.0.0.1",9100));
+   new Thread(new MicrophoneRecSender(n)).start();
     
     
     
