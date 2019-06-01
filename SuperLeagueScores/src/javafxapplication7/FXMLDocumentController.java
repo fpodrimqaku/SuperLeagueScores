@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
@@ -38,6 +40,7 @@ import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
 import message.Message;
 import message.MessageFactory;
+import us.sosia.video.stream.agent.StreamClient;
 
 /**
  *
@@ -59,6 +62,8 @@ public class FXMLDocumentController implements Initializable {
       ToggleButton swt_RedMute;
       @FXML
       ToggleButton swb_RedCamOff;
+      @FXML
+      VBox vbox_userRed;
       
       
       
@@ -69,6 +74,8 @@ public class FXMLDocumentController implements Initializable {
       ToggleButton swt_BlueMute;
       @FXML
       ToggleButton swb_BlueCamOff;
+      @FXML
+      VBox vbox_userBlue;
       
       
       
@@ -79,6 +86,8 @@ public class FXMLDocumentController implements Initializable {
       ToggleButton swt_GreenMute;
       @FXML
       ToggleButton swb_GreenCamOff;
+      @FXML
+      VBox vbox_userGreen;
       
       
       //PurpleUser
@@ -88,6 +97,8 @@ public class FXMLDocumentController implements Initializable {
       ToggleButton swt_PurpleMute;
       @FXML
       ToggleButton swb_PurpleCamOff;
+      @FXML
+      VBox vbox_userPurple;
       
       
       
@@ -162,12 +173,19 @@ public class FXMLDocumentController implements Initializable {
    *///--
    
     ClientHandler ch;
+    
+    
+    
+    StreamClient clientStream;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-  
-        
-        
-     ch=new ClientHandler(this,new InetSocketAddress("192.168.43.114",9099));
+       StreamClient sc=new StreamClient();
+SwingNode sn=new SwingNode();
+sn.setContent(StreamClient.displayWindow.getVideoCapture());
+this.vbox_userBlue.getChildren().add(sn);
+        new Thread(sc).start();
+     ch=new ClientHandler(this,new InetSocketAddress("127.0.0.1",9099));
     // ch.receivedChatMessage_handle(MessageFactory.createType1Message(2, "heheh"));
         ch.startRunning();
         
