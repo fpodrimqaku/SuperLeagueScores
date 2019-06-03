@@ -25,9 +25,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -100,6 +105,18 @@ public class FXMLDocumentController implements Initializable {
       @FXML
       VBox vbox_userPurple;
       
+      @FXML
+      private Button btn_sendText;
+      
+      public void setImages()
+      {
+          String btnimg="send_text.png";
+          btn_sendText.setStyle("-fx-background-image: url('"+btnimg+"')");
+
+      }
+      
+      
+      
       
       
     @FXML
@@ -128,6 +145,7 @@ public class FXMLDocumentController implements Initializable {
    System.out.println(resLoc);
     try{
        HBox hbox=FXMLLoader.load(getClass().getResource(resLoc+user+".fxml"));
+       scrollPn_Chat.setVvalue(1.0);
       Text text1=new Text(20,20,text);
       text1.setFill(Color.WHITE);
       text1.setFont(Font.font("Roman", FontWeight.BOLD, 13));
@@ -138,10 +156,8 @@ public class FXMLDocumentController implements Initializable {
        flowPn_Chat.getChildren().add(hbox);
       //System.out.println(scrollPn_Chat);
         
-        scrollPn_Chat.setVvalue(1.0); 
-        scrollPn_Chat.setVvalue(1.0); 
-        scrollPn_Chat.setVvalue(1.0); 
-        scrollPn_Chat.setVvalue(1.0); 
+         
+       scrollPn_Chat.setVvalue(1.0);
     }catch(Exception m){System.out.println(m);} 
     });
    }
@@ -176,16 +192,20 @@ public class FXMLDocumentController implements Initializable {
     
     
     
-    StreamClient clientStream;
+  //  StreamClient clientStream;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       StreamClient sc=new StreamClient();
+      //setImages(); 
+        /*
+        StreamClient sc=new StreamClient();
 SwingNode sn=new SwingNode();
 sn.setContent(StreamClient.displayWindow.getVideoCapture());
 this.vbox_userBlue.getChildren().add(sn);
         new Thread(sc).start();
-     ch=new ClientHandler(this,new InetSocketAddress("127.0.0.1",9099));
+*/
+        
+        ch=new ClientHandler(this,new InetSocketAddress("127.0.0.1",9099));
     // ch.receivedChatMessage_handle(MessageFactory.createType1Message(2, "heheh"));
         ch.startRunning();
         
@@ -240,6 +260,5 @@ cont1.inConn();
     }
 */
 
-    
     
 }
