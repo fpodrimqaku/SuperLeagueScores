@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
@@ -135,6 +136,7 @@ public class FXMLDocumentController implements Initializable {
     if((text.length()==0) || (text==null))
         return;
        ch.sendChatMessage_handle(text);
+       txt_SendChatText.setText("");
    }
    
    @FXML
@@ -196,7 +198,18 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      //setImages(); 
+      
+txt_SendChatText.setOnKeyReleased(event -> {
+  if (event.getCode() == KeyCode.ENTER){
+    sendText(null);
+  }
+});
+        
+        
+
+
+
+//setImages(); 
         /*
         StreamClient sc=new StreamClient();
 SwingNode sn=new SwingNode();

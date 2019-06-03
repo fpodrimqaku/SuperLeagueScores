@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" java-vm-args="-Djava.library.path=C:\Users\Guesst\Desktop\openCV\opencv\build\java\x64 "  href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="JavaFXApplication7.jar" size="112915" download="eager" />
+    <jar href="JavaFXApplication7.jar" size="113176" download="eager" />
     <jar href="lib\mysql-connector-java-5.1.47.jar" size="1007502" download="eager" />
     <jar href="lib\webcam-capture-example-live-streaming-0.3.13-SNAPSHOT.jar" size="44164" download="eager" />
   </resources>
