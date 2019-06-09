@@ -1,21 +1,50 @@
 package javafxapplication7;
 public class Match
 {
+	int id;
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	private String firstTeam;
 	private String secondTeam;
 	private String date;
 	private int week;
 	private int season;
+	private String firstTeamS;
+	private String secondTeamS;
 	
-	Match(String a, String b, String c, int d, int e)
+	Match(int id, String a, String b, String c, int d, int e, String f, String g)
 	{
+		this.id = id;
 		this.firstTeam = a;
 		this.secondTeam = b;
 		this.date = c;
 		this.week = d;
 		this.season = e;
+		this.firstTeamS = f;
+		this.secondTeamS = g;
 	}
 	
+	public String getFirstTeamS() {
+		return firstTeamS;
+	}
+
+	public void setFirstTeamS(String firstTeamS) {
+		this.firstTeamS = firstTeamS;
+	}
+
+	public String getSecondTeamS() {
+		return secondTeamS;
+	}
+
+	public void setSecondTeamS(String secondTeamS) {
+		this.secondTeamS = secondTeamS;
+	}
+
 	public String getFirstTeam() {
 		return firstTeam;
 	}
