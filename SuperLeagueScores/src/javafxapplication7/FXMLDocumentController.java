@@ -46,7 +46,7 @@ import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebView;
 import message.Message;
 import message.MessageFactory;
-import us.sosia.video.stream.agent.StreamClient;
+
 
 /**
  *
