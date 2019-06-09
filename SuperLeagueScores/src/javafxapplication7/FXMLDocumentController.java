@@ -154,7 +154,7 @@ public class FXMLDocumentController implements Initializable {
    System.out.println(resLoc);
     try{
        HBox hbox=FXMLLoader.load(getClass().getResource(resLoc+user+".fxml"));
-       scrollPn_Chat.setVvalue(1.0);
+      
       Text text1=new Text(20,20,text);
       text1.setFill(Color.WHITE);
       text1.setFont(Font.font("Roman", FontWeight.BOLD, 13));
