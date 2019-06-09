@@ -164,10 +164,13 @@ public class FXMLDocumentController implements Initializable {
        flowPn_Chat.getChildren().add(hbox);
       //System.out.println(scrollPn_Chat);
         
-         
-       scrollPn_Chat.setVvalue(1.0);
+         scrollPn_Chat.layout();
+         scrollPn_Chat.setVvalue(1.0);
+      
     }catch(Exception m){System.out.println(m);} 
-    });
+    //scrollPn_Chat.vvalueProperty().bind(vBox.heightProperty());
+       
+       });
    }
    
    
