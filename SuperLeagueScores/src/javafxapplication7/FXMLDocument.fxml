@@ -46,7 +46,7 @@
                <children>
                   <ScrollPane fx:id="scrollPn_Chat" prefHeight="524.0" prefWidth="268.0">
                      <content>
-                        <FlowPane fx:id="flowPn_Chat" prefHeight="511.0" prefWidth="265.0" />
+                        <FlowPane fx:id="flowPn_Chat" prefHeight="522.0" prefWidth="265.0" />
                      </content>
                   </ScrollPane>
                   <HBox prefHeight="53.0" prefWidth="268.0" style="-fx-padding: 5px;">

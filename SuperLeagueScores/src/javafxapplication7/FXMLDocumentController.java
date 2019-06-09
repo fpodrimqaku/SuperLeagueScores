@@ -23,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -207,6 +208,10 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        scrollPn_Chat.setHbarPolicy(ScrollBarPolicy.NEVER);
+scrollPn_Chat.setVbarPolicy(ScrollBarPolicy.NEVER);
+        
+        
      setImages();
 txt_SendChatText.setOnKeyReleased(event -> {
   if (event.getCode() == KeyCode.ENTER){
