@@ -111,9 +111,15 @@ public class FXMLDocumentController implements Initializable {
       
       public void setImages()
       {
-          String btnimg="send_text.png";
-          btn_sendText.setStyle("-fx-background-image: url('"+btnimg+"')");
-
+          try{
+          String btnimg="snd.png";
+           String h1="-fx-background-size:contain";
+           String h2="-fx-background-radius:100px";
+           String h3="-fx-border-radius:100px;";
+                   
+          btn_sendText.setStyle("-fx-background-image: url('https://www.gofiledrop.com/static/img/send.png')"+";"+h1+";"+h2+";"+h3);
+          }catch(Exception m){}
+ 
       }
       
       
@@ -198,7 +204,7 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-      
+     setImages();
 txt_SendChatText.setOnKeyReleased(event -> {
   if (event.getCode() == KeyCode.ENTER){
     sendText(null);
